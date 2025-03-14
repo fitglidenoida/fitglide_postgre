@@ -1,0 +1,151 @@
+{
+  "kind": "collectionType",
+  "collectionName": "diet_components",
+  "info": {
+    "singularName": "diet-component",
+    "pluralName": "diet-components",
+    "displayName": "DietComponent",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "component_id": {
+      "type": "uid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "recipe_url": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "total_fat": {
+      "type": "string"
+    },
+    "saturated_fat": {
+      "type": "string"
+    },
+    "carbohydrate": {
+      "type": "string"
+    },
+    "sugar": {
+      "type": "string"
+    },
+    "fiber": {
+      "type": "string"
+    },
+    "protein": {
+      "type": "string"
+    },
+    "sodium": {
+      "type": "string"
+    },
+    "vitamin_c": {
+      "type": "string"
+    },
+    "calcium": {
+      "type": "string"
+    },
+    "iron": {
+      "type": "string"
+    },
+    "potassium": {
+      "type": "string"
+    },
+    "cholestrol": {
+      "type": "string"
+    },
+    "calories": {
+      "type": "integer"
+    },
+    "food_type": {
+      "type": "enumeration",
+      "enum": [
+        "Veg",
+        "Non-Veg"
+      ]
+    },
+    "portion_size": {
+      "type": "integer"
+    },
+    "unit": {
+      "type": "enumeration",
+      "enum": [
+        "Nos",
+        "Piece",
+        "Slice",
+        "Handful",
+        "gm",
+        "kg",
+        "mg",
+        "ml",
+        "l",
+        "Cup",
+        "Glass",
+        "Tea Cup",
+        "Bowl",
+        "Tablespoon",
+        "Teaspoon",
+        "Katori",
+        "Vati",
+        "Thali",
+        "Small",
+        "Medium",
+        "Large",
+        "Serving",
+        "Pinch",
+        "Drop"
+      ]
+    },
+    "cuisine": {
+      "type": "enumeration",
+      "enum": [
+        "North Indian",
+        "South Indian",
+        "Gujarati",
+        "Bengali",
+        "Marathi",
+        "Rajasthani",
+        "Punjabi",
+        "Kashmiri",
+        "Konkani",
+        "North Eastern"
+      ]
+    },
+    "meal_suitability": {
+      "type": "enumeration",
+      "enum": [
+        "Breakfast, Snack",
+        "Breakfast, Lunch, Dinner",
+        "Lunch, Dinner",
+        "Breakfast",
+        "Lunch",
+        "Dinner",
+        "Snack"
+      ]
+    },
+    "is_common": {
+      "type": "boolean"
+    },
+    "consumed": {
+      "type": "boolean",
+      "default": false
+    },
+    "timestamp": {
+      "type": "datetime"
+    },
+    "meals": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::meal.meal",
+      "mappedBy": "diet_components"
+    }
+  }
+}

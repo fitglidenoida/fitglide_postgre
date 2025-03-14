@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "diet_plans",
+  "info": {
+    "singularName": "diet-plan",
+    "pluralName": "diet-plans",
+    "displayName": "DietPlan",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "plan_id": {
+      "type": "uid"
+    },
+    "total_calories": {
+      "type": "integer"
+    },
+    "diet_preference": {
+      "type": "enumeration",
+      "enum": [
+        "Veg",
+        "Non-Veg"
+      ]
+    },
+    "Active": {
+      "type": "boolean"
+    },
+    "points_earned": {
+      "type": "integer"
+    },
+    "diet_goal": {
+      "type": "string"
+    },
+    "meals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::meal.meal",
+      "mappedBy": "diet_plan"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "diet_plans"
+    }
+  }
+}

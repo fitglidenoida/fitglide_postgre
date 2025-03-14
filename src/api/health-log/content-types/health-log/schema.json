@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "health_logs",
+  "info": {
+    "singularName": "health-log",
+    "pluralName": "health-logs",
+    "displayName": "HealthLog",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "logId": {
+      "type": "uid"
+    },
+    "dateTime": {
+      "type": "datetime"
+    },
+    "weight": {
+      "type": "decimal",
+      "nullable": true
+    },
+    "steps": {
+      "type": "biginteger",
+      "nullable": true
+    },
+    "caloriesBurned": {
+      "type": "biginteger",
+      "nullable": true
+    },
+    "waterIntake": {
+      "type": "decimal",
+      "nullable": true
+    },
+    "heartRate": {
+      "type": "biginteger",
+      "nullable": true
+    },
+    "distance": {
+      "type": "decimal",
+      "nullable": true
+    },
+    "source": {
+      "type": "string",
+      "nullable": true
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "health_logs"
+    }
+  }
+}

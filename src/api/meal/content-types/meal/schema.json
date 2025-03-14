@@ -1,0 +1,98 @@
+{
+  "kind": "collectionType",
+  "collectionName": "meals",
+  "info": {
+    "singularName": "meal",
+    "pluralName": "meals",
+    "displayName": "Meal",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "meal_id": {
+      "type": "uid"
+    },
+    "meal_time": {
+      "type": "time"
+    },
+    "base_portion": {
+      "type": "integer"
+    },
+    "base_portion_unit": {
+      "type": "enumeration",
+      "enum": [
+        "Nos",
+        "Piece",
+        "Slice",
+        "Handful",
+        "gm",
+        "kg",
+        "mg",
+        "ml",
+        "l",
+        "Cup",
+        "Glass",
+        "Tea Cup",
+        "Bowl",
+        "Tablespoon",
+        "Teaspoon",
+        "Katori",
+        "Vati",
+        "Thali",
+        "Small",
+        "Medium",
+        "Large",
+        "Serving",
+        "Pinch",
+        "Drop"
+      ]
+    },
+    "meal_date": {
+      "type": "date"
+    },
+    "totalCalories": {
+      "type": "integer"
+    },
+    "totalProtein": {
+      "type": "decimal"
+    },
+    "totalCarbs": {
+      "type": "decimal"
+    },
+    "totalFat": {
+      "type": "decimal"
+    },
+    "diet_components": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::diet-component.diet-component",
+      "inversedBy": "meals"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "meals"
+    },
+    "diet_plan": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::diet-plan.diet-plan",
+      "inversedBy": "meals"
+    },
+    "diet_template": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::diet-template.diet-template",
+      "inversedBy": "meals"
+    }
+  }
+}

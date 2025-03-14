@@ -1,0 +1,64 @@
+{
+  "kind": "collectionType",
+  "collectionName": "health_vitals",
+  "info": {
+    "singularName": "health-vital",
+    "pluralName": "health-vitals",
+    "displayName": "HealthVital",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "vitalid": {
+      "type": "uid"
+    },
+    "WeightInKilograms": {
+      "type": "integer"
+    },
+    "BMR": {
+      "type": "biginteger"
+    },
+    "BMI": {
+      "type": "biginteger"
+    },
+    "PercentFat": {
+      "type": "decimal"
+    },
+    "weight_loss_goal": {
+      "type": "integer"
+    },
+    "weeklytarget": {
+      "type": "decimal"
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "Male",
+        "Female"
+      ]
+    },
+    "height": {
+      "type": "integer"
+    },
+    "date_of_birth": {
+      "type": "date"
+    },
+    "stepGoal": {
+      "type": "integer"
+    },
+    "waterGoal": {
+      "type": "decimal"
+    },
+    "calorieGoal": {
+      "type": "integer"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "health_vitals"
+    }
+  }
+}

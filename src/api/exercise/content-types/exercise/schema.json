@@ -1,0 +1,95 @@
+{
+  "kind": "collectionType",
+  "collectionName": "exercises",
+  "info": {
+    "singularName": "exercise",
+    "pluralName": "exercises",
+    "displayName": "Exercise",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "exercise_id": {
+      "type": "uid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Warm-up",
+        "Cardio",
+        "Strength",
+        "Flexibility",
+        "Cool-down"
+      ]
+    },
+    "duration": {
+      "type": "decimal"
+    },
+    "calories_per_minute": {
+      "type": "decimal"
+    },
+    "steps": {
+      "type": "text"
+    },
+    "sport_type": {
+      "type": "enumeration",
+      "enum": [
+        "Running",
+        "Cycling",
+        "Swimming",
+        "Hiking",
+        "Strength",
+        "Cardio",
+        "Full-Body",
+        "Lower Body",
+        "Upper Body",
+        "Core",
+        "Hybrid (Strength + Cardio)",
+        "Plyometric (Explosive)",
+        "Functional Training",
+        "Flexibility and Mobility",
+        "Powerlifting",
+        "Bodyweight Training",
+        "High-Intensity Interval Training (HIIT)",
+        "Pilates",
+        "Yoga",
+        "Circuit Training",
+        "Isometric Training",
+        "Endurance Training",
+        "Agility and Speed Training",
+        "Rehabilitation and Low-Impact",
+        "Dance Fitness",
+        "Rowing",
+        "Badminton",
+        "Tennis",
+        "Jogging"
+      ]
+    },
+    "reps": {
+      "type": "integer"
+    },
+    "sets": {
+      "type": "integer"
+    },
+    "workout": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::workout.workout",
+      "inversedBy": "exercises"
+    },
+    "equipment": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::equipment.equipment",
+      "inversedBy": "exercises"
+    }
+  }
+}

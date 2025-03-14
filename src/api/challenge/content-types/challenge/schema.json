@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "challenges",
+  "info": {
+    "singularName": "challenge",
+    "pluralName": "challenges",
+    "displayName": "challenge",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "challengeId": {
+      "type": "uid"
+    },
+    "challengerId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "challenges_challenger"
+    },
+    "challengeeId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "challenges_challengee"
+    },
+    "type": {
+      "type": "string"
+    },
+    "goal": {
+      "type": "integer"
+    },
+    "challenge_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "accepted",
+        "completed"
+      ]
+    }
+  }
+}

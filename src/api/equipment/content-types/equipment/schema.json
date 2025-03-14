@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "equipments",
+  "info": {
+    "singularName": "equipment",
+    "pluralName": "equipments",
+    "displayName": "equipment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "equipment_id": {
+      "type": "uid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "exercises": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::exercise.exercise",
+      "mappedBy": "equipment"
+    }
+  }
+}

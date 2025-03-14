@@ -1,0 +1,115 @@
+{
+  "kind": "collectionType",
+  "collectionName": "workouts",
+  "info": {
+    "singularName": "workout",
+    "pluralName": "workouts",
+    "displayName": "Workout",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "workoutId": {
+      "type": "uid"
+    },
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "DistancePlanned": {
+      "type": "decimal"
+    },
+    "TotalTimePlanned": {
+      "type": "decimal"
+    },
+    "CaloriesPlanned": {
+      "type": "decimal"
+    },
+    "Distance": {
+      "type": "decimal",
+      "nullable": true
+    },
+    "TotalTime": {
+      "type": "decimal",
+      "nullable": true
+    },
+    "Calories": {
+      "type": "decimal",
+      "nullable": true
+    },
+    "startTime": {
+      "type": "datetime",
+      "nullable": true
+    },
+    "endTime": {
+      "type": "datetime",
+      "nullable": true
+    },
+    "HeartRateAverage": {
+      "type": "biginteger",
+      "nullable": true
+    },
+    "HeartRateMaximum": {
+      "type": "biginteger",
+      "nullable": true
+    },
+    "HeartRateMinimum": {
+      "type": "biginteger",
+      "nullable": true
+    },
+    "sport_type": {
+      "type": "enumeration",
+      "enum": [
+        "Running",
+        "Cycling",
+        "Swimming",
+        "Hiking",
+        "Strength",
+        "Cardio",
+        "Full-Body",
+        "Lower Body",
+        "Upper Body",
+        "Core",
+        "Hybrid (Strength + Cardio)",
+        "Plyometric (Explosive)",
+        "Functional Training",
+        "Flexibility and Mobility",
+        "Powerlifting",
+        "Bodyweight Training",
+        "High-Intensity Interval Training (HIIT)",
+        "Pilates",
+        "Yoga",
+        "Circuit Training",
+        "Isometric Training",
+        "Endurance Training",
+        "Agility and Speed Training",
+        "Rehabilitation and Low-Impact",
+        "Dance Fitness",
+        "Rowing",
+        "Badminton",
+        "Tennis",
+        "Jogging"
+      ]
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "exercises": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exercise.exercise",
+      "mappedBy": "workout"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "workouts"
+    }
+  }
+}

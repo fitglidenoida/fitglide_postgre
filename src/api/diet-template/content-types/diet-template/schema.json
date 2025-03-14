@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "diet_templates",
+  "info": {
+    "singularName": "diet-template",
+    "pluralName": "diet-templates",
+    "displayName": "DietTemplate",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "diet_template_id": {
+      "type": "uid"
+    },
+    "plan_name": {
+      "type": "string"
+    },
+    "total_calories": {
+      "type": "integer"
+    },
+    "notes": {
+      "type": "text"
+    },
+    "diet_preference": {
+      "type": "enumeration",
+      "enum": [
+        "Veg",
+        "Non-Veg"
+      ]
+    },
+    "meals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::meal.meal",
+      "mappedBy": "diet_template"
+    }
+  }
+}

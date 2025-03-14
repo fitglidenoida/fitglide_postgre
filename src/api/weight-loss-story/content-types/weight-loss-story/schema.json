@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "weight_loss_stories",
+  "info": {
+    "singularName": "weight-loss-story",
+    "pluralName": "weight-loss-stories",
+    "displayName": "WeightLossStory",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "createdAt": {
+      "type": "datetime"
+    },
+    "storyId": {
+      "type": "uid"
+    },
+    "thenPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": false
+    },
+    "nowPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": false
+    },
+    "thenWeight": {
+      "type": "decimal"
+    },
+    "nowWeight": {
+      "type": "decimal"
+    },
+    "weightLost": {
+      "type": "decimal"
+    },
+    "storyText": {
+      "type": "text"
+    },
+    "likes": {
+      "type": "integer",
+      "default": 0
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "weight_loss_stories"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "weight_loss_story"
+    }
+  }
+}

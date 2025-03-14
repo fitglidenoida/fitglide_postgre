@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comments",
+  "info": {
+    "singularName": "comment",
+    "pluralName": "comments",
+    "displayName": "Comment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "createdAt": {
+      "type": "datetime"
+    },
+    "commentId": {
+      "type": "uid"
+    },
+    "text": {
+      "type": "text"
+    },
+    "weight_loss_story": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::weight-loss-story.weight-loss-story",
+      "inversedBy": "comments"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "comments"
+    }
+  }
+}
