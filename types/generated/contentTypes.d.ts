@@ -1642,6 +1642,8 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    firstName: Schema.Attribute.String;
+    googleId: Schema.Attribute.String;
     health_logs: Schema.Attribute.Relation<
       'oneToMany',
       'api::health-log.health-log'
@@ -1650,6 +1652,7 @@ export interface PluginUsersPermissionsUser
       'oneToMany',
       'api::health-vital.health-vital'
     >;
+    lastName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1657,11 +1660,16 @@ export interface PluginUsersPermissionsUser
     > &
       Schema.Attribute.Private;
     meals: Schema.Attribute.Relation<'oneToMany', 'api::meal.meal'>;
+    myPic: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    picture: Schema.Attribute.String;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;

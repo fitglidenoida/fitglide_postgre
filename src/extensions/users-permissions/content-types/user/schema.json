@@ -162,6 +162,28 @@
       "relation": "oneToMany",
       "target": "api::challenge.challenge",
       "mappedBy": "challengeeId"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "picture": {
+      "type": "string"
+    },
+    "googleId": {
+      "type": "string"
+    },
+    "myPic": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }
