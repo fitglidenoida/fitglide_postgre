@@ -45,7 +45,7 @@
       "type": "string",
       "nullable": true
     },
-    "users_permissions_user": {
+    "username": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",

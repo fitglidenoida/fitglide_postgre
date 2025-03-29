@@ -103,12 +103,6 @@
       "target": "api::workout.workout",
       "mappedBy": "users_permissions_user"
     },
-    "health_logs": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::health-log.health-log",
-      "mappedBy": "users_permissions_user"
-    },
     "weight_loss_stories": {
       "type": "relation",
       "relation": "oneToMany",
@@ -184,6 +178,12 @@
       ],
       "type": "media",
       "multiple": true
+    },
+    "health_logs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::health-log.health-log",
+      "mappedBy": "username"
     }
   }
 }
