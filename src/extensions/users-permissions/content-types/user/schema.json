@@ -183,7 +183,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::health-log.health-log",
-      "mappedBy": "username"
+      "mappedBy": "users_permissions_user"
     }
   }
 }
