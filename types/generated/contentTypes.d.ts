@@ -818,6 +818,51 @@ export interface ApiExerciseExercise extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFriendFriend extends Struct.CollectionTypeSchema {
+  collectionName: 'friends';
+  info: {
+    description: '';
+    displayName: 'friend';
+    pluralName: 'friends';
+    singularName: 'friend';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    friendEmail: Schema.Attribute.String;
+    friendId: Schema.Attribute.UID;
+    friends_status: Schema.Attribute.Enumeration<
+      ['Pending', 'Accepted', 'Rejected']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Pending'>;
+    friendUserId: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    invitedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    inviteToken: Schema.Attribute.String & Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::friend.friend'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    username: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiHealthLogHealthLog extends Struct.CollectionTypeSchema {
   collectionName: 'health_logs';
   info: {
@@ -1643,6 +1688,11 @@ export interface PluginUsersPermissionsUser
         minLength: 6;
       }>;
     firstName: Schema.Attribute.String;
+    friends_received: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::friend.friend'
+    >;
+    friends_sent: Schema.Attribute.Relation<'oneToMany', 'api::friend.friend'>;
     googleId: Schema.Attribute.String;
     health_logs: Schema.Attribute.Relation<
       'oneToMany',
@@ -1715,6 +1765,7 @@ declare module '@strapi/strapi' {
       'api::dietician.dietician': ApiDieticianDietician;
       'api::equipment.equipment': ApiEquipmentEquipment;
       'api::exercise.exercise': ApiExerciseExercise;
+      'api::friend.friend': ApiFriendFriend;
       'api::health-log.health-log': ApiHealthLogHealthLog;
       'api::health-vital.health-vital': ApiHealthVitalHealthVital;
       'api::meal.meal': ApiMealMeal;

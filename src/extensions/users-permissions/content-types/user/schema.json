@@ -184,6 +184,18 @@
       "relation": "oneToMany",
       "target": "api::health-log.health-log",
       "mappedBy": "users_permissions_user"
+    },
+    "friends_sent": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::friend.friend",
+      "mappedBy": "username"
+    },
+    "friends_received": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::friend.friend",
+      "mappedBy": "friendUserId"
     }
   }
 }

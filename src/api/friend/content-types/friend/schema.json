@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "friends",
+  "info": {
+    "singularName": "friend",
+    "pluralName": "friends",
+    "displayName": "friend",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "friendId": {
+      "type": "uid"
+    },
+    "friendEmail": {
+      "type": "string"
+    },
+    "username": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "friends_sent"
+    },
+    "friends_status": {
+      "type": "enumeration",
+      "enum": [
+        "Pending",
+        "Accepted",
+        "Rejected"
+      ],
+      "default": "Pending",
+      "required": true
+    },
+    "invitedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "friendUserId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "friends_received"
+    },
+    "inviteToken": {
+      "type": "string",
+      "unique": true
+    }
+  }
+}
