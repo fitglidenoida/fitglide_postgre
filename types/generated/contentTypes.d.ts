@@ -916,6 +916,15 @@ export interface ApiHealthVitalHealthVital extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    activity_level: Schema.Attribute.Enumeration<
+      [
+        'Sedentary (little/no exercise)',
+        'Light exercise (1-3 days/week)',
+        'Moderate exercise (3-5 days/week)',
+        'Heavy exercise (6-7 days/week)',
+        'Very heavy exercise (Twice/day)',
+      ]
+    >;
     BMI: Schema.Attribute.BigInteger;
     BMR: Schema.Attribute.BigInteger;
     calorieGoal: Schema.Attribute.Integer;

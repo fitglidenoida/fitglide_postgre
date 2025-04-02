@@ -67,6 +67,16 @@
         "Aggressive-(0.5 kg/week)",
         "Custom"
       ]
+    },
+    "activity_level": {
+      "type": "enumeration",
+      "enum": [
+        "Sedentary (little/no exercise)",
+        "Light exercise (1-3 days/week)",
+        "Moderate exercise (3-5 days/week)",
+        "Heavy exercise (6-7 days/week)",
+        "Very heavy exercise (Twice/day)"
+      ]
     }
   }
 }
