@@ -943,8 +943,11 @@ export interface ApiHealthVitalHealthVital extends Struct.CollectionTypeSchema {
     >;
     vitalid: Schema.Attribute.UID;
     waterGoal: Schema.Attribute.Decimal;
-    weeklytarget: Schema.Attribute.Decimal;
+    weekly_target_calculated: Schema.Attribute.Decimal;
     weight_loss_goal: Schema.Attribute.Integer;
+    weight_loss_strategy: Schema.Attribute.Enumeration<
+      ['Lean-(0.25 kg/week)', 'Aggressive-(0.5 kg/week)', 'Custom']
+    >;
     WeightInKilograms: Schema.Attribute.Integer;
   };
 }
