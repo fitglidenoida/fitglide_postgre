@@ -170,14 +170,15 @@
       "type": "string"
     },
     "myPic": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "health_logs": {
       "type": "relation",
@@ -196,6 +197,11 @@
       "relation": "oneToMany",
       "target": "api::friend.friend",
       "mappedBy": "friendUserId"
+    },
+    "mobile": {
+      "type": "integer",
+      "unique": true,
+      "min": 10
     }
   }
 }

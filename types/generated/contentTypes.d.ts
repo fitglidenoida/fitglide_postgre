@@ -1722,6 +1722,14 @@ export interface PluginUsersPermissionsUser
     > &
       Schema.Attribute.Private;
     meals: Schema.Attribute.Relation<'oneToMany', 'api::meal.meal'>;
+    mobile: Schema.Attribute.Integer &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 10;
+        },
+        number
+      >;
     myPic: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
