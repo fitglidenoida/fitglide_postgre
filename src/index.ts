@@ -17,17 +17,27 @@ export default {
    * run jobs, or perform some special logic.
    */
   bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {
-    strapi.service('plugin::users-permissions.user').update = async (id: string, data: any) => {
-      const sanitizedData = {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        mobile: data.mobile,
-        email: data.email // Allow email update if needed
-      };
-      const updatedUser = await strapi.entityService.update('plugin::users-permissions.user', id, {
-        data: sanitizedData
-      });
-      return updatedUser;
+    const userService = strapi.service('plugin::users-permissions.user');
+
+    userService.update = async (id: string, data: any) => {
+      try {
+        const sanitizedData = {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          mobile: data.mobile,
+        };
+
+        const updatedUser = await strapi.entityService.update(
+          'plugin::users-permissions.user',
+          id,
+          { data: sanitizedData }
+        );
+
+        return updatedUser;
+      } catch (error) {
+        console.error('Error updating user:', error);
+        throw new Error('User update failed');
+      }
     };
   },
 };
