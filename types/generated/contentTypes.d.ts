@@ -1721,6 +1721,7 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    maxGreetingsEnabled: Schema.Attribute.Boolean;
     meals: Schema.Attribute.Relation<'oneToMany', 'api::meal.meal'>;
     mobile: Schema.Attribute.Integer &
       Schema.Attribute.Unique &
@@ -1734,6 +1735,7 @@ export interface PluginUsersPermissionsUser
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    notificationsEnabled: Schema.Attribute.Boolean;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
