@@ -7,7 +7,36 @@ export default {
    *
    * This gives you an opportunity to extend code.
    */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register(/* { strapi }: { strapi: Core.Strapi } */) {
+    strapi.server.use(async (ctx, next) => {
+      if (ctx.method === 'PUT' && ctx.url === `/users/${ctx.params.id}`) {
+        const { id } = ctx.params;
+        const { data } = ctx.request.body;
+
+        // Allow custom fields to be updated
+        const sanitizedData = {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          mobile: data.mobile,
+          // email: data.email // Optional, typically restricted
+        };
+
+        // Update user with sanitized data
+        const updatedUser = await strapi.entityService.update(
+          'plugin::users-permissions.user',
+          id,
+          { data: sanitizedData }
+        );
+
+        // Sanitize output (remove sensitive fields like password)
+        const sanitizedUser = await strapi.service('plugin::users-permissions.user').sanitizeUser(updatedUser);
+
+        ctx.body = sanitizedUser;
+      } else {
+        await next(); // Pass to next middleware if not our route
+      }
+    });
+  },
 
   /**
    * An asynchronous bootstrap function that runs before
