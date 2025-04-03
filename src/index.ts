@@ -8,8 +8,8 @@ export default {
    * This gives you an opportunity to extend code.
    */
   register(/* { strapi }: { strapi: Core.Strapi } */) {
-    strapi.server.use(async (ctx, next) => {
-      if (ctx.method === 'PUT' && ctx.url === `/users/${ctx.params.id}`) {
+    strapi.server.router.use('/users/:id', async (ctx, next) => {
+      if (ctx.method === 'PUT') {
         const { id } = ctx.params;
         const { data } = ctx.request.body;
 
@@ -33,7 +33,7 @@ export default {
 
         ctx.body = sanitizedUser;
       } else {
-        await next(); // Pass to next middleware if not our route
+        await next(); // Pass to next middleware if not PUT
       }
     });
   },
