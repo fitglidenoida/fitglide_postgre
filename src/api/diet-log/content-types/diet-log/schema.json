@@ -4,7 +4,8 @@
   "info": {
     "singularName": "diet-log",
     "pluralName": "diet-logs",
-    "displayName": "diet-log"
+    "displayName": "diet-log",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -20,10 +21,7 @@
       "inversedBy": "diet_logs"
     },
     "meals": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::meal.meal",
-      "mappedBy": "diet_log"
+      "type": "json"
     }
   }
 }

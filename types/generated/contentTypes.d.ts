@@ -595,6 +595,7 @@ export interface ApiDietComponentDietComponent
 export interface ApiDietLogDietLog extends Struct.CollectionTypeSchema {
   collectionName: 'diet_logs';
   info: {
+    description: '';
     displayName: 'diet-log';
     pluralName: 'diet-logs';
     singularName: 'diet-log';
@@ -613,7 +614,7 @@ export interface ApiDietLogDietLog extends Struct.CollectionTypeSchema {
       'api::diet-log.diet-log'
     > &
       Schema.Attribute.Private;
-    meals: Schema.Attribute.Relation<'oneToMany', 'api::meal.meal'>;
+    meals: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1043,7 +1044,6 @@ export interface ApiMealMeal extends Struct.CollectionTypeSchema {
       'manyToMany',
       'api::diet-component.diet-component'
     >;
-    diet_log: Schema.Attribute.Relation<'manyToOne', 'api::diet-log.diet-log'>;
     diet_plan: Schema.Attribute.Relation<
       'manyToOne',
       'api::diet-plan.diet-plan'
