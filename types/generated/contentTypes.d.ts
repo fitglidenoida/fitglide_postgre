@@ -592,6 +592,39 @@ export interface ApiDietComponentDietComponent
   };
 }
 
+export interface ApiDietLogDietLog extends Struct.CollectionTypeSchema {
+  collectionName: 'diet_logs';
+  info: {
+    displayName: 'diet-log';
+    pluralName: 'diet-logs';
+    singularName: 'diet-log';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::diet-log.diet-log'
+    > &
+      Schema.Attribute.Private;
+    meals: Schema.Attribute.Relation<'oneToMany', 'api::meal.meal'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiDietPlanDietPlan extends Struct.CollectionTypeSchema {
   collectionName: 'diet_plans';
   info: {
@@ -1010,6 +1043,7 @@ export interface ApiMealMeal extends Struct.CollectionTypeSchema {
       'manyToMany',
       'api::diet-component.diet-component'
     >;
+    diet_log: Schema.Attribute.Relation<'manyToOne', 'api::diet-log.diet-log'>;
     diet_plan: Schema.Attribute.Relation<
       'manyToOne',
       'api::diet-plan.diet-plan'
@@ -1678,6 +1712,7 @@ export interface PluginUsersPermissionsUser
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    diet_logs: Schema.Attribute.Relation<'oneToMany', 'api::diet-log.diet-log'>;
     diet_plans: Schema.Attribute.Relation<
       'oneToMany',
       'api::diet-plan.diet-plan'
@@ -1782,6 +1817,7 @@ declare module '@strapi/strapi' {
       'api::coach.coach': ApiCoachCoach;
       'api::comment.comment': ApiCommentComment;
       'api::diet-component.diet-component': ApiDietComponentDietComponent;
+      'api::diet-log.diet-log': ApiDietLogDietLog;
       'api::diet-plan.diet-plan': ApiDietPlanDietPlan;
       'api::diet-template.diet-template': ApiDietTemplateDietTemplate;
       'api::dietician.dietician': ApiDieticianDietician;

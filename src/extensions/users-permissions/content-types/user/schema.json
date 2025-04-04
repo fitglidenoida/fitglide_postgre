@@ -208,6 +208,12 @@
     },
     "maxGreetingsEnabled": {
       "type": "boolean"
+    },
+    "diet_logs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::diet-log.diet-log",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

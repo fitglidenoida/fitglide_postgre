@@ -93,6 +93,12 @@
       "relation": "manyToOne",
       "target": "api::diet-template.diet-template",
       "inversedBy": "meals"
+    },
+    "diet_log": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::diet-log.diet-log",
+      "inversedBy": "meals"
     }
   }
 }

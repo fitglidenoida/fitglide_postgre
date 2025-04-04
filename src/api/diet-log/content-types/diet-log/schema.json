@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "diet_logs",
+  "info": {
+    "singularName": "diet-log",
+    "pluralName": "diet-logs",
+    "displayName": "diet-log"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "diet_logs"
+    },
+    "meals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::meal.meal",
+      "mappedBy": "diet_log"
+    }
+  }
+}
