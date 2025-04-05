@@ -214,6 +214,12 @@
       "relation": "oneToMany",
       "target": "api::diet-log.diet-log",
       "mappedBy": "users_permissions_user"
+    },
+    "daily_quests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::daily-quest.daily-quest",
+      "mappedBy": "user"
     }
   }
 }

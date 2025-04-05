@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "daily_quests",
+  "info": {
+    "singularName": "daily-quest",
+    "pluralName": "daily-quests",
+    "displayName": "daily-quest"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "daily_quests"
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "goal": {
+      "type": "json",
+      "required": true
+    },
+    "progress": {
+      "type": "decimal",
+      "required": true
+    }
+  }
+}

@@ -486,6 +486,40 @@ export interface ApiCommentComment extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiDailyQuestDailyQuest extends Struct.CollectionTypeSchema {
+  collectionName: 'daily_quests';
+  info: {
+    displayName: 'daily-quest';
+    pluralName: 'daily-quests';
+    singularName: 'daily-quest';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date & Schema.Attribute.Required;
+    goal: Schema.Attribute.JSON & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::daily-quest.daily-quest'
+    > &
+      Schema.Attribute.Private;
+    progress: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiDietComponentDietComponent
   extends Struct.CollectionTypeSchema {
   collectionName: 'diet_components';
@@ -1745,6 +1779,10 @@ export interface PluginUsersPermissionsUser
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    daily_quests: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::daily-quest.daily-quest'
+    >;
     diet_logs: Schema.Attribute.Relation<'oneToMany', 'api::diet-log.diet-log'>;
     diet_plans: Schema.Attribute.Relation<
       'oneToMany',
@@ -1849,6 +1887,7 @@ declare module '@strapi/strapi' {
       'api::challenge.challenge': ApiChallengeChallenge;
       'api::coach.coach': ApiCoachCoach;
       'api::comment.comment': ApiCommentComment;
+      'api::daily-quest.daily-quest': ApiDailyQuestDailyQuest;
       'api::diet-component.diet-component': ApiDietComponentDietComponent;
       'api::diet-log.diet-log': ApiDietLogDietLog;
       'api::diet-plan.diet-plan': ApiDietPlanDietPlan;
