@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "meal_feedbacks",
+  "info": {
+    "singularName": "meal-feedback",
+    "pluralName": "meal-feedbacks",
+    "displayName": "meal-feedback"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "userId": {
+      "type": "string"
+    },
+    "mealId": {
+      "type": "string"
+    },
+    "oldComponentId": {
+      "type": "string"
+    },
+    "newComponentId": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "datetime"
+    }
+  }
+}

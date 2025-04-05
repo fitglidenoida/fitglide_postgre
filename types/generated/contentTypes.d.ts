@@ -995,6 +995,39 @@ export interface ApiHealthVitalHealthVital extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiMealFeedbackMealFeedback
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'meal_feedbacks';
+  info: {
+    displayName: 'meal-feedback';
+    pluralName: 'meal-feedbacks';
+    singularName: 'meal-feedback';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::meal-feedback.meal-feedback'
+    > &
+      Schema.Attribute.Private;
+    mealId: Schema.Attribute.String;
+    newComponentId: Schema.Attribute.String;
+    oldComponentId: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    timestamp: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userId: Schema.Attribute.String;
+  };
+}
+
 export interface ApiMealMeal extends Struct.CollectionTypeSchema {
   collectionName: 'meals';
   info: {
@@ -1826,6 +1859,7 @@ declare module '@strapi/strapi' {
       'api::friend.friend': ApiFriendFriend;
       'api::health-log.health-log': ApiHealthLogHealthLog;
       'api::health-vital.health-vital': ApiHealthVitalHealthVital;
+      'api::meal-feedback.meal-feedback': ApiMealFeedbackMealFeedback;
       'api::meal.meal': ApiMealMeal;
       'api::sleeplog.sleeplog': ApiSleeplogSleeplog;
       'api::weight-loss-story.weight-loss-story': ApiWeightLossStoryWeightLossStory;
