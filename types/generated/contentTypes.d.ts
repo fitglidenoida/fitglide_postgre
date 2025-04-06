@@ -1224,6 +1224,50 @@ export interface ApiWeightLossStoryWeightLossStory
   };
 }
 
+export interface ApiWorkoutLogWorkoutLog extends Struct.CollectionTypeSchema {
+  collectionName: 'workout_logs';
+  info: {
+    displayName: 'workout_log';
+    pluralName: 'workout-logs';
+    singularName: 'workout-log';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Calories: Schema.Attribute.Decimal;
+    completed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Distance: Schema.Attribute.Decimal;
+    endTime: Schema.Attribute.DateTime;
+    HeartRateAverage: Schema.Attribute.BigInteger;
+    HeartRateMaximum: Schema.Attribute.BigInteger;
+    HeartRateMinimum: Schema.Attribute.BigInteger;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::workout-log.workout-log'
+    > &
+      Schema.Attribute.Private;
+    logId: Schema.Attribute.UID;
+    notes: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    route: Schema.Attribute.JSON;
+    startTime: Schema.Attribute.DateTime;
+    TotalTime: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    workout: Schema.Attribute.Relation<'manyToOne', 'api::workout.workout'>;
+  };
+}
+
 export interface ApiWorkoutWorkout extends Struct.CollectionTypeSchema {
   collectionName: 'workouts';
   info: {
@@ -1300,6 +1344,10 @@ export interface ApiWorkoutWorkout extends Struct.CollectionTypeSchema {
     users_permissions_user: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
+    >;
+    workout_logs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::workout-log.workout-log'
     >;
     workoutId: Schema.Attribute.UID;
   };
@@ -1870,6 +1918,10 @@ export interface PluginUsersPermissionsUser
       'oneToMany',
       'api::weight-loss-story.weight-loss-story'
     >;
+    workout_logs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::workout-log.workout-log'
+    >;
     workouts: Schema.Attribute.Relation<'oneToMany', 'api::workout.workout'>;
   };
 }
@@ -1902,6 +1954,7 @@ declare module '@strapi/strapi' {
       'api::meal.meal': ApiMealMeal;
       'api::sleeplog.sleeplog': ApiSleeplogSleeplog;
       'api::weight-loss-story.weight-loss-story': ApiWeightLossStoryWeightLossStory;
+      'api::workout-log.workout-log': ApiWorkoutLogWorkoutLog;
       'api::workout.workout': ApiWorkoutWorkout;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

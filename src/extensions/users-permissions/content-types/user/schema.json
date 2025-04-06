@@ -220,6 +220,12 @@
       "relation": "oneToMany",
       "target": "api::daily-quest.daily-quest",
       "mappedBy": "user"
+    },
+    "workout_logs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::workout-log.workout-log",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

@@ -110,6 +110,12 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "workouts"
+    },
+    "workout_logs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::workout-log.workout-log",
+      "mappedBy": "workout"
     }
   }
 }

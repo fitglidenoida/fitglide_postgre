@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "workout_logs",
+  "info": {
+    "singularName": "workout-log",
+    "pluralName": "workout-logs",
+    "displayName": "workout_log"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "logId": {
+      "type": "uid"
+    },
+    "workout": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::workout.workout",
+      "inversedBy": "workout_logs"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "workout_logs"
+    },
+"startTime": { "type": "datetime" },
+    "endTime": { "type": "datetime" },
+    "Distance": { "type": "decimal" },
+    "TotalTime": { "type": "decimal" },
+    "Calories": { "type": "decimal" },
+    "HeartRateAverage": { "type": "biginteger" },
+    "HeartRateMaximum": { "type": "biginteger" },
+    "HeartRateMinimum": { "type": "biginteger" },
+    "route": { "type": "json" }, 
+    "completed": { "type": "boolean", "default": false },
+    "notes": { "type": "text" }
+  }
+}
