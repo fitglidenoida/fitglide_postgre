@@ -1299,7 +1299,7 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     pack: Schema.Attribute.Relation<'manyToOne', 'api::pack.pack'>;
     publishedAt: Schema.Attribute.DateTime;
-    type: Schema.Attribute.Enumeration<['Streak', 'Manual', 'Live']> &
+    type: Schema.Attribute.Enumeration<['streak', 'manual', 'live']> &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

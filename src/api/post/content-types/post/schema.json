@@ -20,9 +20,9 @@
     "type": {
       "type": "enumeration",
       "enum": [
-        "Streak",
-        "Manual",
-        "Live"
+        "streak",
+        "manual",
+        "live"
       ],
       "required": true
     },
