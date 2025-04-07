@@ -30,10 +30,6 @@
       "type": "json",
       "required": true
     },
-    "timestamp": {
-      "type": "datetime",
-      "required": true
-    },
     "challenge": {
       "type": "relation",
       "relation": "manyToOne",

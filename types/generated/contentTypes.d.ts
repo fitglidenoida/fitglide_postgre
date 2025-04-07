@@ -441,7 +441,6 @@ export interface ApiCheerCheer extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    timestamp: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1300,7 +1299,6 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     pack: Schema.Attribute.Relation<'manyToOne', 'api::pack.pack'>;
     publishedAt: Schema.Attribute.DateTime;
-    timestamp: Schema.Attribute.DateTime & Schema.Attribute.Required;
     type: Schema.Attribute.Enumeration<['Streak', 'Manual', 'Live']> &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;

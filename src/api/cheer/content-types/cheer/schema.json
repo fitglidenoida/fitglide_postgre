@@ -24,8 +24,6 @@
     "message": {
       "type": "string",
       "default": "Way to go!"
-    },
-    "timestamp": {
-      "type": "datetime"    }
+    }
   }
 }
