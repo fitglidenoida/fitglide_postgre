@@ -24,10 +24,6 @@
       "default": "Pending",
       "required": true
     },
-    "invitedAt": {
-      "type": "datetime",
-      "required": true
-    },
     "inviteToken": {
       "type": "string",
       "unique": true

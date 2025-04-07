@@ -969,7 +969,6 @@ export interface ApiFriendFriend extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Pending'>;
-    invitedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
     inviteToken: Schema.Attribute.String & Schema.Attribute.Unique;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
