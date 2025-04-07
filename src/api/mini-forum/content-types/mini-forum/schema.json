@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mini_forums",
+  "info": {
+    "singularName": "mini-forum",
+    "pluralName": "mini-forums",
+    "displayName": "Mini-forum",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "creator": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "mini_forums"
+    }
+  }
+}

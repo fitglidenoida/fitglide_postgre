@@ -11,9 +11,6 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "challengeId": {
-      "type": "uid"
-    },
     "challengerId": {
       "type": "relation",
       "relation": "manyToOne",
@@ -26,11 +23,9 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "challenges_challengee"
     },
-    "type": {
-      "type": "string"
-    },
     "goal": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     },
     "challenge_status": {
       "type": "enumeration",
@@ -39,6 +34,24 @@
         "accepted",
         "completed"
       ]
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Solo",
+        "Pack",
+        "PackVsPack"
+      ],
+      "required": true
+    },
+    "winner": {
+      "type": "string"
+    },
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "challenge"
     }
   }
 }

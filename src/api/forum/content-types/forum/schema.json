@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "forums",
+  "info": {
+    "singularName": "forum",
+    "pluralName": "forums",
+    "displayName": "forum"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "forums"
+    },
+    "threads": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::thread.thread",
+      "mappedBy": "forum"
+    }
+  }
+}

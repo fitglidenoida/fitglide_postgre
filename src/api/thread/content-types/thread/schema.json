@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "threads",
+  "info": {
+    "singularName": "thread",
+    "pluralName": "threads",
+    "displayName": "thread",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "text",
+      "required": true
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "threads"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "thread"
+    },
+    "forum": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::forum.forum",
+      "inversedBy": "threads"
+    }
+  }
+}

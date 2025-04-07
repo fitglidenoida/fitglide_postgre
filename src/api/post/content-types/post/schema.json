@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "posts",
+  "info": {
+    "singularName": "post",
+    "pluralName": "posts",
+    "displayName": "post",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "pack": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pack.pack",
+      "inversedBy": "posts"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Streak",
+        "Manual",
+        "Live"
+      ],
+      "required": true
+    },
+    "data": {
+      "type": "json",
+      "required": true
+    },
+    "timestamp": {
+      "type": "datetime",
+      "required": true
+    },
+    "challenge": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::challenge.challenge",
+      "inversedBy": "posts"
+    }
+  }
+}

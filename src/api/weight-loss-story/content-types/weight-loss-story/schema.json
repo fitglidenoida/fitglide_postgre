@@ -48,12 +48,6 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "weight_loss_stories"
-    },
-    "comments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::comment.comment",
-      "mappedBy": "weight_loss_story"
     }
   }
 }

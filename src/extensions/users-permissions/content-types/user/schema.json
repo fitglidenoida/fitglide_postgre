@@ -109,12 +109,6 @@
       "target": "api::weight-loss-story.weight-loss-story",
       "mappedBy": "users_permissions_user"
     },
-    "comments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::comment.comment",
-      "mappedBy": "users_permissions_user"
-    },
     "dieticians": {
       "type": "relation",
       "relation": "oneToMany",
@@ -225,6 +219,48 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::workout-log.workout-log",
+      "mappedBy": "users_permissions_user"
+    },
+    "packs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::pack.pack",
+      "mappedBy": "gliders"
+    },
+    "pack": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::pack.pack",
+      "mappedBy": "captain"
+    },
+    "cheers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cheer.cheer",
+      "mappedBy": "sender"
+    },
+    "mini_forums": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::mini-forum.mini-forum",
+      "mappedBy": "creator"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "user"
+    },
+    "threads": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::thread.thread",
+      "mappedBy": "user"
+    },
+    "forums": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::forum.forum",
       "mappedBy": "users_permissions_user"
     }
   }

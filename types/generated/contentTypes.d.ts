@@ -388,7 +388,6 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    challengeId: Schema.Attribute.UID;
     challengerId: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
@@ -396,15 +395,53 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    goal: Schema.Attribute.Integer;
+    goal: Schema.Attribute.Integer & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::challenge.challenge'
     > &
       Schema.Attribute.Private;
+    posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
     publishedAt: Schema.Attribute.DateTime;
-    type: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<['Solo', 'Pack', 'PackVsPack']> &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    winner: Schema.Attribute.String;
+  };
+}
+
+export interface ApiCheerCheer extends Struct.CollectionTypeSchema {
+  collectionName: 'cheers';
+  info: {
+    description: '';
+    displayName: 'cheer';
+    pluralName: 'cheers';
+    singularName: 'cheer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::cheer.cheer'> &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Way to go!'>;
+    publishedAt: Schema.Attribute.DateTime;
+    receiver: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    sender: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    timestamp: Schema.Attribute.DateTime & Schema.Attribute.DefaultTo<'now()'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -460,7 +497,6 @@ export interface ApiCommentComment extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    commentId: Schema.Attribute.UID;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -471,17 +507,14 @@ export interface ApiCommentComment extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    text: Schema.Attribute.Text;
+    text: Schema.Attribute.Text & Schema.Attribute.Required;
+    thread: Schema.Attribute.Relation<'manyToOne', 'api::thread.thread'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
+    user: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
-    >;
-    weight_loss_story: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::weight-loss-story.weight-loss-story'
     >;
   };
 }
@@ -886,6 +919,36 @@ export interface ApiExerciseExercise extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiForumForum extends Struct.CollectionTypeSchema {
+  collectionName: 'forums';
+  info: {
+    displayName: 'forum';
+    pluralName: 'forums';
+    singularName: 'forum';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::forum.forum'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    threads: Schema.Attribute.Relation<'oneToMany', 'api::thread.thread'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiFriendFriend extends Struct.CollectionTypeSchema {
   collectionName: 'friends';
   info: {
@@ -1141,6 +1204,112 @@ export interface ApiMealMeal extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiMiniForumMiniForum extends Struct.CollectionTypeSchema {
+  collectionName: 'mini_forums';
+  info: {
+    description: '';
+    displayName: 'Mini-forum';
+    pluralName: 'mini-forums';
+    singularName: 'mini-forum';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    creator: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    description: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::mini-forum.mini-forum'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPackPack extends Struct.CollectionTypeSchema {
+  collectionName: 'packs';
+  info: {
+    displayName: 'pack';
+    pluralName: 'packs';
+    singularName: 'pack';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    captain: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    gliders: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    goal: Schema.Attribute.Integer & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::pack.pack'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
+    progress: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPostPost extends Struct.CollectionTypeSchema {
+  collectionName: 'posts';
+  info: {
+    description: '';
+    displayName: 'post';
+    pluralName: 'posts';
+    singularName: 'post';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    challenge: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::challenge.challenge'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data: Schema.Attribute.JSON & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'> &
+      Schema.Attribute.Private;
+    pack: Schema.Attribute.Relation<'manyToOne', 'api::pack.pack'>;
+    publishedAt: Schema.Attribute.DateTime;
+    timestamp: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<['Streak', 'Manual', 'Live']> &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSleeplogSleeplog extends Struct.CollectionTypeSchema {
   collectionName: 'sleeplogs';
   info: {
@@ -1182,6 +1351,42 @@ export interface ApiSleeplogSleeplog extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiThreadThread extends Struct.CollectionTypeSchema {
+  collectionName: 'threads';
+  info: {
+    description: '';
+    displayName: 'thread';
+    pluralName: 'threads';
+    singularName: 'thread';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
+    content: Schema.Attribute.Text & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    forum: Schema.Attribute.Relation<'manyToOne', 'api::forum.forum'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::thread.thread'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiWeightLossStoryWeightLossStory
   extends Struct.CollectionTypeSchema {
   collectionName: 'weight_loss_stories';
@@ -1195,7 +1400,6 @@ export interface ApiWeightLossStoryWeightLossStory
     draftAndPublish: true;
   };
   attributes: {
-    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1819,6 +2023,7 @@ export interface PluginUsersPermissionsUser
       'oneToMany',
       'api::challenge.challenge'
     >;
+    cheers: Schema.Attribute.Relation<'oneToMany', 'api::cheer.cheer'>;
     coach_clients: Schema.Attribute.Relation<'manyToMany', 'api::coach.coach'>;
     coach_profile: Schema.Attribute.Relation<'oneToOne', 'api::coach.coach'>;
     comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
@@ -1854,6 +2059,7 @@ export interface PluginUsersPermissionsUser
         minLength: 6;
       }>;
     firstName: Schema.Attribute.String;
+    forums: Schema.Attribute.Relation<'oneToMany', 'api::forum.forum'>;
     friends_received: Schema.Attribute.Relation<
       'oneToMany',
       'api::friend.friend'
@@ -1877,6 +2083,10 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.Private;
     maxGreetingsEnabled: Schema.Attribute.Boolean;
     meals: Schema.Attribute.Relation<'oneToMany', 'api::meal.meal'>;
+    mini_forums: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::mini-forum.mini-forum'
+    >;
     mobile: Schema.Attribute.Integer &
       Schema.Attribute.Unique &
       Schema.Attribute.SetMinMax<
@@ -1890,6 +2100,8 @@ export interface PluginUsersPermissionsUser
       true
     >;
     notificationsEnabled: Schema.Attribute.Boolean;
+    pack: Schema.Attribute.Relation<'oneToOne', 'api::pack.pack'>;
+    packs: Schema.Attribute.Relation<'manyToMany', 'api::pack.pack'>;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
@@ -1904,6 +2116,7 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.role'
     >;
     sleeplogs: Schema.Attribute.Relation<'oneToMany', 'api::sleeplog.sleeplog'>;
+    threads: Schema.Attribute.Relation<'oneToMany', 'api::thread.thread'>;
     type: Schema.Attribute.Enumeration<['regular', 'coach', 'dietician']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1937,6 +2150,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::challenge.challenge': ApiChallengeChallenge;
+      'api::cheer.cheer': ApiCheerCheer;
       'api::coach.coach': ApiCoachCoach;
       'api::comment.comment': ApiCommentComment;
       'api::daily-quest.daily-quest': ApiDailyQuestDailyQuest;
@@ -1947,12 +2161,17 @@ declare module '@strapi/strapi' {
       'api::dietician.dietician': ApiDieticianDietician;
       'api::equipment.equipment': ApiEquipmentEquipment;
       'api::exercise.exercise': ApiExerciseExercise;
+      'api::forum.forum': ApiForumForum;
       'api::friend.friend': ApiFriendFriend;
       'api::health-log.health-log': ApiHealthLogHealthLog;
       'api::health-vital.health-vital': ApiHealthVitalHealthVital;
       'api::meal-feedback.meal-feedback': ApiMealFeedbackMealFeedback;
       'api::meal.meal': ApiMealMeal;
+      'api::mini-forum.mini-forum': ApiMiniForumMiniForum;
+      'api::pack.pack': ApiPackPack;
+      'api::post.post': ApiPostPost;
       'api::sleeplog.sleeplog': ApiSleeplogSleeplog;
+      'api::thread.thread': ApiThreadThread;
       'api::weight-loss-story.weight-loss-story': ApiWeightLossStoryWeightLossStory;
       'api::workout-log.workout-log': ApiWorkoutLogWorkoutLog;
       'api::workout.workout': ApiWorkoutWorkout;

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cheers",
+  "info": {
+    "singularName": "cheer",
+    "pluralName": "cheers",
+    "displayName": "cheer",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "sender": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "receiver": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "message": {
+      "type": "string",
+      "default": "Way to go!"
+    },
+    "timestamp": {
+      "type": "datetime",
+      "default": "now()"
+    }
+  }
+}

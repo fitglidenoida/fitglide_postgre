@@ -14,22 +14,20 @@
     "createdAt": {
       "type": "datetime"
     },
-    "commentId": {
-      "type": "uid"
-    },
     "text": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
-    "weight_loss_story": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::weight-loss-story.weight-loss-story",
-      "inversedBy": "comments"
-    },
-    "users_permissions_user": {
+    "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
+      "inversedBy": "comments"
+    },
+    "thread": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::thread.thread",
       "inversedBy": "comments"
     }
   }
