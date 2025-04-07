@@ -441,7 +441,7 @@ export interface ApiCheerCheer extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    timestamp: Schema.Attribute.DateTime & Schema.Attribute.DefaultTo<'now()'>;
+    timestamp: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -965,16 +965,11 @@ export interface ApiFriendFriend extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     friendEmail: Schema.Attribute.String;
-    friendId: Schema.Attribute.UID;
     friends_status: Schema.Attribute.Enumeration<
       ['Pending', 'Accepted', 'Rejected']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Pending'>;
-    friendUserId: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
     invitedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
     inviteToken: Schema.Attribute.String & Schema.Attribute.Unique;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -984,13 +979,17 @@ export interface ApiFriendFriend extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    username: Schema.Attribute.Relation<
+    receiver: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    sender: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1268,7 +1267,7 @@ export interface ApiPackPack extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
-    progress: Schema.Attribute.Integer;
+    progress: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -2060,7 +2059,7 @@ export interface PluginUsersPermissionsUser
       }>;
     firstName: Schema.Attribute.String;
     forums: Schema.Attribute.Relation<'oneToMany', 'api::forum.forum'>;
-    friends_received: Schema.Attribute.Relation<
+    friends_receiveds: Schema.Attribute.Relation<
       'oneToMany',
       'api::friend.friend'
     >;

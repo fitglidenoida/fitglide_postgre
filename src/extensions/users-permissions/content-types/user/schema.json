@@ -180,18 +180,6 @@
       "target": "api::health-log.health-log",
       "mappedBy": "users_permissions_user"
     },
-    "friends_sent": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::friend.friend",
-      "mappedBy": "username"
-    },
-    "friends_received": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::friend.friend",
-      "mappedBy": "friendUserId"
-    },
     "mobile": {
       "type": "integer",
       "unique": true,
@@ -262,6 +250,18 @@
       "relation": "oneToMany",
       "target": "api::forum.forum",
       "mappedBy": "users_permissions_user"
+    },
+    "friends_sent": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::friend.friend",
+      "mappedBy": "sender"
+    },
+    "friends_receiveds": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::friend.friend",
+      "mappedBy": "receiver"
     }
   }
 }

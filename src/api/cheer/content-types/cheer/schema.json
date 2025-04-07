@@ -26,8 +26,6 @@
       "default": "Way to go!"
     },
     "timestamp": {
-      "type": "datetime",
-      "default": "now()"
-    }
+      "type": "datetime"    }
   }
 }

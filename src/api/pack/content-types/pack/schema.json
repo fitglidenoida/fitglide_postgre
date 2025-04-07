@@ -32,7 +32,8 @@
       "required": true
     },
     "progress": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     },
     "posts": {
       "type": "relation",

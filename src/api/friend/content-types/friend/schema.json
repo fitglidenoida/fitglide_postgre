@@ -11,17 +11,8 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "friendId": {
-      "type": "uid"
-    },
     "friendEmail": {
       "type": "string"
-    },
-    "username": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "friends_sent"
     },
     "friends_status": {
       "type": "enumeration",
@@ -37,15 +28,21 @@
       "type": "datetime",
       "required": true
     },
-    "friendUserId": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "friends_received"
-    },
     "inviteToken": {
       "type": "string",
       "unique": true
+    },
+    "sender": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "friends_sent"
+    },
+    "receiver": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "friends_receiveds"
     }
   }
 }
