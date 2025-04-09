@@ -29,6 +29,12 @@
       "relation": "manyToOne",
       "target": "api::thread.thread",
       "inversedBy": "comments"
+    },
+    "post": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::post.post",
+      "inversedBy": "comments"
     }
   }
 }
