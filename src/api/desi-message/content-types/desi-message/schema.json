@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "desi_messages",
+  "info": {
+    "singularName": "desi-message",
+    "pluralName": "desi-messages",
+    "displayName": "desi-message"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "yesterday_line": {
+      "type": "text"
+    },
+    "today_line": {
+      "type": "text"
+    },
+    "badge": {
+      "type": "enumeration",
+      "enum": [
+        "fitness",
+        "motivation",
+        "hydration"
+      ]
+    },
+    "language_style": {
+      "type": "enumeration",
+      "enum": [
+        "hinglish",
+        "desi",
+        "funny",
+        "pure_english"
+      ]
+    },
+    "is_premium": {
+      "type": "boolean"
+    }
+  }
+}
