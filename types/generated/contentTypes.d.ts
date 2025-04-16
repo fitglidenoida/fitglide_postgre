@@ -1526,6 +1526,7 @@ export interface ApiWorkoutLogWorkoutLog extends Struct.CollectionTypeSchema {
     notes: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
     route: Schema.Attribute.JSON;
+    source: Schema.Attribute.String;
     startTime: Schema.Attribute.DateTime;
     strava_activity_id: Schema.Attribute.Integer;
     TotalTime: Schema.Attribute.Decimal;

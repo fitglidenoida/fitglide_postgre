@@ -68,6 +68,9 @@
     },
     "athlete_id": {
       "type": "integer"
+    },
+    "source": {
+      "type": "string"
     }
   }
 }
