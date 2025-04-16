@@ -4,7 +4,8 @@
   "info": {
     "singularName": "workout-log",
     "pluralName": "workout-logs",
-    "displayName": "workout_log"
+    "displayName": "workout_log",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -25,16 +26,48 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "workout_logs"
     },
-"startTime": { "type": "datetime" },
-    "endTime": { "type": "datetime" },
-    "Distance": { "type": "decimal" },
-    "TotalTime": { "type": "decimal" },
-    "Calories": { "type": "decimal" },
-    "HeartRateAverage": { "type": "biginteger" },
-    "HeartRateMaximum": { "type": "biginteger" },
-    "HeartRateMinimum": { "type": "biginteger" },
-    "route": { "type": "json" }, 
-    "completed": { "type": "boolean", "default": false },
-    "notes": { "type": "text" }
+    "startTime": {
+      "type": "datetime"
+    },
+    "endTime": {
+      "type": "datetime"
+    },
+    "Distance": {
+      "type": "decimal"
+    },
+    "TotalTime": {
+      "type": "decimal"
+    },
+    "Calories": {
+      "type": "decimal"
+    },
+    "HeartRateAverage": {
+      "type": "biginteger"
+    },
+    "HeartRateMaximum": {
+      "type": "biginteger"
+    },
+    "HeartRateMinimum": {
+      "type": "biginteger"
+    },
+    "route": {
+      "type": "json"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "text"
+    },
+    "moving_time": {
+      "type": "decimal"
+    },
+    "strava_activity_id": {
+      "type": "integer"
+    },
+    "athlete_id": {
+      "type": "integer"
+    }
   }
 }

@@ -14,7 +14,8 @@
     "sender": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "cheers"
     },
     "receiver": {
       "type": "relation",

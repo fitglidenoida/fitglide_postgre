@@ -1495,6 +1495,7 @@ export interface ApiWeightLossStoryWeightLossStory
 export interface ApiWorkoutLogWorkoutLog extends Struct.CollectionTypeSchema {
   collectionName: 'workout_logs';
   info: {
+    description: '';
     displayName: 'workout_log';
     pluralName: 'workout-logs';
     singularName: 'workout-log';
@@ -1503,6 +1504,7 @@ export interface ApiWorkoutLogWorkoutLog extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    athlete_id: Schema.Attribute.Integer;
     Calories: Schema.Attribute.Decimal;
     completed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -1520,10 +1522,12 @@ export interface ApiWorkoutLogWorkoutLog extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     logId: Schema.Attribute.UID;
+    moving_time: Schema.Attribute.Decimal;
     notes: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
     route: Schema.Attribute.JSON;
     startTime: Schema.Attribute.DateTime;
+    strava_activity_id: Schema.Attribute.Integer;
     TotalTime: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -2078,6 +2082,7 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
+    athlete_id: Schema.Attribute.Integer;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     challenges_challengee: Schema.Attribute.Relation<
       'oneToMany',
@@ -2181,6 +2186,7 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.role'
     >;
     sleeplogs: Schema.Attribute.Relation<'oneToMany', 'api::sleeplog.sleeplog'>;
+    strava_connected: Schema.Attribute.Boolean;
     threads: Schema.Attribute.Relation<'oneToMany', 'api::thread.thread'>;
     type: Schema.Attribute.Enumeration<['regular', 'coach', 'dietician']>;
     updatedAt: Schema.Attribute.DateTime;
