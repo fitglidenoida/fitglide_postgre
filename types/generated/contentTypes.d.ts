@@ -1488,6 +1488,7 @@ export interface ApiWeightLossStoryWeightLossStory
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    visibility: Schema.Attribute.Enumeration<['Everyone', 'Friends']>;
     weightLost: Schema.Attribute.Decimal;
   };
 }

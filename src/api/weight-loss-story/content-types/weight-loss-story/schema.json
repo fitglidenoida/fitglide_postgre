@@ -48,6 +48,13 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "weight_loss_stories"
+    },
+    "visibility": {
+      "type": "enumeration",
+      "enum": [
+        "Everyone",
+        "Friends"
+      ]
     }
   }
 }
