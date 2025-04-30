@@ -936,6 +936,7 @@ export interface ApiExerciseExercise extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     reps: Schema.Attribute.Integer;
+    rest_between_sets: Schema.Attribute.Integer;
     sets: Schema.Attribute.Integer;
     sport_type: Schema.Attribute.Enumeration<
       [
@@ -977,6 +978,7 @@ export interface ApiExerciseExercise extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    weight: Schema.Attribute.Integer;
     workout: Schema.Attribute.Relation<'manyToOne', 'api::workout.workout'>;
   };
 }
@@ -1564,10 +1566,12 @@ export interface ApiWorkoutWorkout extends Struct.CollectionTypeSchema {
     Distance: Schema.Attribute.Decimal;
     DistancePlanned: Schema.Attribute.Decimal;
     endTime: Schema.Attribute.DateTime;
+    exercise_order: Schema.Attribute.JSON;
     exercises: Schema.Attribute.Relation<'oneToMany', 'api::exercise.exercise'>;
     HeartRateAverage: Schema.Attribute.BigInteger;
     HeartRateMaximum: Schema.Attribute.BigInteger;
     HeartRateMinimum: Schema.Attribute.BigInteger;
+    is_template: Schema.Attribute.Boolean;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

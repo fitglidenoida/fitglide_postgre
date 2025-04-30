@@ -90,6 +90,12 @@
       "relation": "manyToMany",
       "target": "api::equipment.equipment",
       "inversedBy": "exercises"
+    },
+    "rest_between_sets": {
+      "type": "integer"
+    },
+    "weight": {
+      "type": "integer"
     }
   }
 }

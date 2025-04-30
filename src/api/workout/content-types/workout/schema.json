@@ -116,6 +116,12 @@
       "relation": "oneToMany",
       "target": "api::workout-log.workout-log",
       "mappedBy": "workout"
+    },
+    "is_template": {
+      "type": "boolean"
+    },
+    "exercise_order": {
+      "type": "json"
     }
   }
 }
