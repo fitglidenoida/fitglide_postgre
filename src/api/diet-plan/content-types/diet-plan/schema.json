@@ -24,7 +24,7 @@
         "Non-Veg"
       ]
     },
-    "Active": {
+    "active": {
       "type": "boolean"
     },
     "points_earned": {
