@@ -1453,6 +1453,36 @@ export interface ApiThreadThread extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiWaitlistWaitlist extends Struct.CollectionTypeSchema {
+  collectionName: 'waitlists';
+  info: {
+    displayName: 'waitlist';
+    pluralName: 'waitlists';
+    singularName: 'waitlist';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::waitlist.waitlist'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiWeightLossStoryWeightLossStory
   extends Struct.CollectionTypeSchema {
   collectionName: 'weight_loss_stories';
@@ -2251,6 +2281,7 @@ declare module '@strapi/strapi' {
       'api::post.post': ApiPostPost;
       'api::sleeplog.sleeplog': ApiSleeplogSleeplog;
       'api::thread.thread': ApiThreadThread;
+      'api::waitlist.waitlist': ApiWaitlistWaitlist;
       'api::weight-loss-story.weight-loss-story': ApiWeightLossStoryWeightLossStory;
       'api::workout-log.workout-log': ApiWorkoutLogWorkoutLog;
       'api::workout.workout': ApiWorkoutWorkout;
