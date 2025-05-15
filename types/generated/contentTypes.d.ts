@@ -1502,20 +1502,20 @@ export interface ApiWeightLossStoryWeightLossStory
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     firstName: Schema.Attribute.String;
-    likes: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    likes: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::weight-loss-story.weight-loss-story'
     > &
       Schema.Attribute.Private;
-    nowPhoto: Schema.Attribute.Media;
-    nowWeight: Schema.Attribute.Decimal;
+    nowPhoto: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    nowWeight: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
-    storyId: Schema.Attribute.UID;
+    storyId: Schema.Attribute.String;
     storyText: Schema.Attribute.Text;
-    thenPhoto: Schema.Attribute.Media;
-    thenWeight: Schema.Attribute.Decimal;
+    thenPhoto: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    thenWeight: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1524,7 +1524,7 @@ export interface ApiWeightLossStoryWeightLossStory
       'plugin::users-permissions.user'
     >;
     visibility: Schema.Attribute.Enumeration<['Everyone', 'Friends']>;
-    weightLost: Schema.Attribute.Decimal;
+    weightLost: Schema.Attribute.Integer;
   };
 }
 

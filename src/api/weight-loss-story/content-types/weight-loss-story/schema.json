@@ -15,33 +15,44 @@
       "type": "datetime"
     },
     "storyId": {
-      "type": "uid"
+      "type": "string"
     },
     "thenPhoto": {
       "type": "media",
       "multiple": false,
-      "required": false
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     },
     "nowPhoto": {
       "type": "media",
       "multiple": false,
-      "required": false
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     },
     "thenWeight": {
-      "type": "decimal"
+      "type": "integer"
     },
     "nowWeight": {
-      "type": "decimal"
+      "type": "integer"
     },
     "weightLost": {
-      "type": "decimal"
+      "type": "integer"
     },
     "storyText": {
       "type": "text"
     },
     "likes": {
-      "type": "integer",
-      "default": 0
+      "type": "integer"
     },
     "visibility": {
       "type": "enumeration",
