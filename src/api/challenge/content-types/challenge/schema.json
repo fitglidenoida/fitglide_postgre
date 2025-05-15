@@ -40,7 +40,8 @@
       "enum": [
         "Solo",
         "Pack",
-        "PackVsPack"
+        "PackVsPack",
+        "Public"
       ],
       "required": true
     },

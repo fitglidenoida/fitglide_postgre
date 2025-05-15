@@ -103,12 +103,6 @@
       "target": "api::workout.workout",
       "mappedBy": "users_permissions_user"
     },
-    "weight_loss_stories": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::weight-loss-story.weight-loss-story",
-      "mappedBy": "users_permissions_user"
-    },
     "dieticians": {
       "type": "relation",
       "relation": "oneToMany",
@@ -274,6 +268,12 @@
     },
     "strava_connected": {
       "type": "boolean"
+    },
+    "weight_loss_stories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::weight-loss-story.weight-loss-story",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

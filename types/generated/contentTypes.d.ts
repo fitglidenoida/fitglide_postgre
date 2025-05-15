@@ -431,7 +431,9 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
     publishedAt: Schema.Attribute.DateTime;
-    type: Schema.Attribute.Enumeration<['Solo', 'Pack', 'PackVsPack']> &
+    type: Schema.Attribute.Enumeration<
+      ['Solo', 'Pack', 'PackVsPack', 'Public']
+    > &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1499,6 +1501,7 @@ export interface ApiWeightLossStoryWeightLossStory
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    firstName: Schema.Attribute.String;
     likes: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
