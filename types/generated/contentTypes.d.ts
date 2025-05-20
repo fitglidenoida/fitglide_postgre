@@ -1458,6 +1458,7 @@ export interface ApiThreadThread extends Struct.CollectionTypeSchema {
 export interface ApiWaitlistWaitlist extends Struct.CollectionTypeSchema {
   collectionName: 'waitlists';
   info: {
+    description: '';
     displayName: 'waitlist';
     pluralName: 'waitlists';
     singularName: 'waitlist';
@@ -1479,6 +1480,9 @@ export interface ApiWaitlistWaitlist extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    quiz_response: Schema.Attribute.String;
+    referral_code: Schema.Attribute.String;
+    referrals: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

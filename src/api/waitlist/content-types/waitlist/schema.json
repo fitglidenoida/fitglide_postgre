@@ -4,7 +4,8 @@
   "info": {
     "singularName": "waitlist",
     "pluralName": "waitlists",
-    "displayName": "waitlist"
+    "displayName": "waitlist",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,6 +15,15 @@
       "type": "email",
       "required": true,
       "unique": true
+    },
+    "referral_code": {
+      "type": "string"
+    },
+    "referrals": {
+      "type": "integer"
+    },
+    "quiz_response": {
+      "type": "string"
     }
   }
 }
