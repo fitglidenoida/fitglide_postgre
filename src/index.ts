@@ -46,7 +46,8 @@ export default {
    * run jobs, or perform some special logic.
    */
   async bootstrap({ strapi } /* { strapi }: { strapi: Core.Strapi } */) {
-    // Ensure Strava webhook subscription is created on startup
+    strapi.log.info('Bootstrap function started');
     await strapi.service('api::strava-callback.strava-callback').ensureWebhookSubscription();
+    strapi.log.info('Bootstrap function completed');
   },
 };
