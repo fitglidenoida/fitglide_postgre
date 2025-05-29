@@ -1,4 +1,4 @@
-//import type { Strapi } from '@strapi/strapi';
+import type { Core } from '@strapi/types';
 
 export default {
   /**
@@ -7,7 +7,7 @@ export default {
    *
    * This gives you an opportunity to extend code.
    */
-  register({ strapi }: { strapi: Strapi }) {
+  register({ strapi }: { strapi: Core.Strapi }) {
     strapi.server.router.use('/users/:id', async (ctx, next) => {
       if (ctx.method === 'PUT') {
         const { id } = ctx.params;
@@ -21,7 +21,7 @@ export default {
           // email: data.email // Optional, typically restricted
         };
 
-        // Update user with sanitized data
+        // Update user with sanitizedData
         const updatedUser = await strapi.entityService.update(
           'plugin::users-permissions.user',
           id,
@@ -45,7 +45,7 @@ export default {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  async bootstrap({ strapi }: { strapi: Strapi }) {
+  async bootstrap({ strapi }: { strapi: Core.Strapi }) {
     // Ensure Strava webhook subscription is created on startup
     await strapi.service('api::strava-callback.strava-callback').ensureWebhookSubscription();
   },
