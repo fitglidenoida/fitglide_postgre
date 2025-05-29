@@ -45,5 +45,8 @@ export default {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+  async bootstrap({ strapi } /* { strapi }: { strapi: Core.Strapi } */) {
+    // Ensure Strava webhook subscription is created on startup
+    await strapi.service('api::strava-callback.strava-callback').ensureWebhookSubscription();
+  },
 };
