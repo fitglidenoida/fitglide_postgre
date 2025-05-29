@@ -1,5 +1,12 @@
 import type { Core } from '@strapi/types';
 
+// Define the user model type based on the schema
+interface UserUpdateData {
+  firstName?: string;
+  lastName?: string;
+  mobile?: string;
+}
+
 export default {
   /**
    * An asynchronous register function that runs before
@@ -14,14 +21,13 @@ export default {
         const { data } = ctx.request.body;
 
         // Allow custom fields to be updated
-        const sanitizedData = {
+        const sanitizedData: UserUpdateData = {
           firstName: data.firstName,
           lastName: data.lastName,
           mobile: data.mobile,
-          // email: data.email // Optional, typically restricted
         };
 
-        // Update user with sanitizedData
+        // Update user with sanitized data
         const updatedUser = await strapi.entityService.update(
           'plugin::users-permissions.user',
           id,
