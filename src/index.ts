@@ -1,11 +1,4 @@
-import type { Core } from '@strapi/types';
-
-// Define the user model type based on the schema
-interface UserUpdateData {
-  firstName?: string;
-  lastName?: string;
-  mobile?: string;
-}
+// import type { Core } from '@strapi/strapi';
 
 export default {
   /**
@@ -14,17 +7,18 @@ export default {
    *
    * This gives you an opportunity to extend code.
    */
-  register({ strapi }: { strapi: Core.Strapi }) {
+  register(/* { strapi }: { strapi: Core.Strapi } */) {
     strapi.server.router.use('/users/:id', async (ctx, next) => {
       if (ctx.method === 'PUT') {
         const { id } = ctx.params;
         const { data } = ctx.request.body;
 
         // Allow custom fields to be updated
-        const sanitizedData: UserUpdateData = {
+        const sanitizedData = {
           firstName: data.firstName,
           lastName: data.lastName,
           mobile: data.mobile,
+          // email: data.email // Optional, typically restricted
         };
 
         // Update user with sanitized data
@@ -51,8 +45,5 @@ export default {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  async bootstrap({ strapi }: { strapi: Core.Strapi }) {
-    // Ensure Strava webhook subscription is created on startup
-    await strapi.service('api::strava-callback.strava-callback').ensureWebhookSubscription();
-  },
+  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
 };
