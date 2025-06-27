@@ -119,18 +119,6 @@
         "North Eastern"
       ]
     },
-    "meal_suitability": {
-      "type": "enumeration",
-      "enum": [
-        "Breakfast, Snack",
-        "Breakfast, Lunch, Dinner",
-        "Lunch, Dinner",
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Snack"
-      ]
-    },
     "is_common": {
       "type": "boolean"
     },
@@ -146,6 +134,9 @@
       "relation": "manyToMany",
       "target": "api::meal.meal",
       "mappedBy": "diet_components"
+    },
+    "meal_suitability": {
+      "type": "json"
     }
   }
 }

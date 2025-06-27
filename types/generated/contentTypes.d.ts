@@ -694,17 +694,7 @@ export interface ApiDietComponentDietComponent
       'api::diet-component.diet-component'
     > &
       Schema.Attribute.Private;
-    meal_suitability: Schema.Attribute.Enumeration<
-      [
-        'Breakfast, Snack',
-        'Breakfast, Lunch, Dinner',
-        'Lunch, Dinner',
-        'Breakfast',
-        'Lunch',
-        'Dinner',
-        'Snack',
-      ]
-    >;
+    meal_suitability: Schema.Attribute.JSON;
     meals: Schema.Attribute.Relation<'manyToMany', 'api::meal.meal'>;
     name: Schema.Attribute.String;
     portion_size: Schema.Attribute.Integer;
