@@ -1,0 +1,153 @@
+import axios from 'axios';
+import type { Core } from '@strapi/types';
+
+export default ({ strapi }: { strapi: Core.Strapi }) => ({
+  async initiate(ctx: any) {
+    try {
+      const clientId = process.env.STRAVA_CLIENT_ID;
+      const redirectUri = process.env.STRAVA_REDIRECT_URI || 'fitglide://callback';
+      const scope = 'activity:write,read';
+      const state = ctx.query.state || ctx.request.body.state || ''; // Use state if provided, or leave empty
+
+      // Log the received state parameter
+      strapi.log.info(`Received state from query: ${ctx.query.state}, from body: ${ctx.request.body.state}, final state: ${state}`);
+
+      if (!clientId) {
+        strapi.log.error('STRAVA_CLIENT_ID not configured');
+        return ctx.throw(500, 'STRAVA_CLIENT_ID not configured');
+      }
+      if (!redirectUri) {
+        strapi.log.error('STRAVA_REDIRECT_URI not configured');
+        return ctx.throw(500, 'STRAVA_REDIRECT_URI not configured');
+      }
+
+      const authUrl = `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}&state=${state}&approval_prompt=force`;
+      strapi.log.info(`Generated Strava auth URL: ${authUrl}`);
+      return { redirectUrl: authUrl };
+    } catch (error) {
+      strapi.log.error('Error generating Strava auth URL:', error.message);
+      return ctx.throw(500, `Failed to generate Strava auth URL: ${error.message}`);
+    }
+  },
+
+  // ... (rest of the file remains unchanged)
+});
+
+  // Function for POST /api/strava-callback: Exchanges code for tokens and syncs activities
+  async handleCallback(ctx: any) {
+    const { code, state: strapiUserId } = ctx.request.body;
+
+    // Validate request payload
+    if (!code || !strapiUserId) {
+      strapi.log.error('Missing code or state in request body');
+      return ctx.redirect('fitglide://callback?status=error&message=Failed to connect to Strava. Please try again.');
+    }
+
+    try {
+      // Step 1: Exchange code for tokens
+      const tokenResponse = await axios.post('https://www.strava.com/api/v3/oauth/token', {
+        client_id: process.env.STRAVA_CLIENT_ID,
+        client_secret: process.env.STRAVA_CLIENT_SECRET,
+        code,
+        grant_type: 'authorization_code',
+      });
+
+      const { access_token, refresh_token, expires_at, athlete } = tokenResponse.data;
+      const athleteId = athlete.id;
+
+      // Step 2: Check for existing binding in strava_user_binding
+      const existingBinding = await strapi.db.query('api::strava-user-binding.strava-user-binding').findMany({
+        where: { strapi_user_id: strapiUserId },
+      });
+
+      if (existingBinding.length > 0) {
+        // Update existing binding
+        await strapi.db.query('api::strava-user-binding.strava-user-binding').update({
+          where: { id: existingBinding[0].id },
+          data: {
+            strava_athlete_id: athleteId,
+            access_token,
+            refresh_token,
+            token_expiration: expires_at,
+          },
+        });
+      } else {
+        // Create new binding
+        await strapi.db.query('api::strava-user-binding.strava-user-binding').create({
+          data: {
+            strapi_user_id: strapiUserId,
+            strava_athlete_id: athleteId,
+            access_token,
+            refresh_token,
+            token_expiration: expires_at,
+            publishedAt: new Date(),
+          },
+        });
+      }
+
+      // Step 3: Sync last 15 days of activities
+      const fifteenDaysAgo = Math.floor(Date.now() / 1000) - 15 * 24 * 60 * 60;
+      let retryAttempts = 0;
+      const maxRetries = 3;
+      let syncSuccessful = false;
+
+      while (retryAttempts < maxRetries && !syncSuccessful) {
+        try {
+          const activitiesResponse = await axios.get('https://www.strava.com/api/v3/athlete/activities', {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+            params: {
+              after: fifteenDaysAgo,
+              per_page: 10,
+            },
+          });
+
+          const activities = activitiesResponse.data;
+
+          // Step 4: Store activities in workout_logs
+          for (const activity of activities) {
+            await strapi.db.query('api::workout-log.workout-log').create({
+              data: {
+                strava_activity_id: activity.id.toString(),
+                strapi_user_id: strapiUserId,
+                activity_type: activity.type,
+                start_time: activity.start_date,
+                distance: activity.distance / 1609.34, // Convert meters to miles
+                total_time: activity.moving_time / 60, // Convert seconds to minutes
+                calories: activity.calories || 0,
+                heart_rate_average: activity.average_heartrate || 0,
+                heart_rate_maximum: activity.max_heartrate || 0,
+                notes: activity.description || '',
+                publishedAt: new Date(),
+              },
+            });
+          }
+
+          syncSuccessful = true;
+        } catch (error) {
+          if (error.response && error.response.status === 429) {
+            // Rate limit hit, retry after delay
+            retryAttempts++;
+            strapi.log.warn(`Rate limit hit on attempt ${retryAttempts}. Retrying after delay...`);
+            await new Promise(resolve => setTimeout(resolve, 1000 * retryAttempts * 60));
+          } else {
+            strapi.log.error('Error syncing Strava activities:', error.message);
+            return ctx.redirect(`fitglide://callback?status=error&message=Failed to sync activities: ${error.message}`);
+          }
+        }
+      }
+
+      if (!syncSuccessful) {
+        strapi.log.error('Failed to sync Strava activities after maximum retries');
+        return ctx.redirect('fitglide://callback?status=error&message=Failed to sync activities after maximum retries');
+      }
+
+      // Step 5: Redirect to app on success
+      return ctx.redirect('fitglide://callback?status=success');
+    } catch (error) {
+      strapi.log.error('Error in Strava callback:', error.message);
+      return ctx.redirect(`fitglide://callback?status=error&message=Failed to connect to Strava: ${error.message}`);
+    }
+  },
+});
