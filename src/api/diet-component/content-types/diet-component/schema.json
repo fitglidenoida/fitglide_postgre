@@ -134,6 +134,9 @@
       "relation": "manyToMany",
       "target": "api::meal.meal",
       "mappedBy": "diet_components"
+    },
+    "meal_suitability": {
+      "type": "json"
     }
   }
 }
