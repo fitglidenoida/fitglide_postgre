@@ -18,10 +18,10 @@
       "type": "integer"
     },
     "BMR": {
-      "type": "biginteger"
+      "type": "decimal"
     },
     "BMI": {
-      "type": "biginteger"
+      "type": "decimal"
     },
     "PercentFat": {
       "type": "decimal"

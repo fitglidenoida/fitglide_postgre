@@ -1139,8 +1139,8 @@ export interface ApiHealthVitalHealthVital extends Struct.CollectionTypeSchema {
         'Very heavy exercise (Twice/day)',
       ]
     >;
-    BMI: Schema.Attribute.BigInteger;
-    BMR: Schema.Attribute.BigInteger;
+    BMI: Schema.Attribute.Decimal;
+    BMR: Schema.Attribute.Decimal;
     calorieGoal: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
