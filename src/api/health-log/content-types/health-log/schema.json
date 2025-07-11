@@ -22,11 +22,11 @@
       "nullable": true
     },
     "steps": {
-      "type": "biginteger",
+      "type": "integer",
       "nullable": true
     },
     "caloriesBurned": {
-      "type": "biginteger",
+      "type": "integer",
       "nullable": true
     },
     "waterIntake": {
@@ -34,7 +34,7 @@
       "nullable": true
     },
     "heartRate": {
-      "type": "biginteger",
+      "type": "integer",
       "nullable": true
     },
     "distance": {

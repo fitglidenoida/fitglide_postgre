@@ -1089,13 +1089,13 @@ export interface ApiHealthLogHealthLog extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    caloriesBurned: Schema.Attribute.BigInteger;
+    caloriesBurned: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     dateTime: Schema.Attribute.DateTime;
     distance: Schema.Attribute.Decimal;
-    heartRate: Schema.Attribute.BigInteger;
+    heartRate: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1105,7 +1105,7 @@ export interface ApiHealthLogHealthLog extends Struct.CollectionTypeSchema {
     logId: Schema.Attribute.UID;
     publishedAt: Schema.Attribute.DateTime;
     source: Schema.Attribute.String;
-    steps: Schema.Attribute.BigInteger;
+    steps: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
