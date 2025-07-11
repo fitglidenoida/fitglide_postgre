@@ -1089,7 +1089,7 @@ export interface ApiHealthLogHealthLog extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    caloriesBurned: Schema.Attribute.Integer;
+    caloriesBurned: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

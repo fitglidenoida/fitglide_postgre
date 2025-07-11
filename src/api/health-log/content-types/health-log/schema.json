@@ -26,7 +26,7 @@
       "nullable": true
     },
     "caloriesBurned": {
-      "type": "integer",
+      "type": "decimal",
       "nullable": true
     },
     "waterIntake": {
