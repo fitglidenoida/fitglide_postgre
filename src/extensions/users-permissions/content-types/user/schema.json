@@ -274,6 +274,12 @@
       "relation": "oneToMany",
       "target": "api::weight-loss-story.weight-loss-story",
       "mappedBy": "users_permissions_user"
+    },
+    "step_sessions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::step-session.step-session",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

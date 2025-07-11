@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "step_sessions",
+  "info": {
+    "singularName": "step-session",
+    "pluralName": "step-sessions",
+    "displayName": "step-session"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "startTime": {
+      "type": "datetime"
+    },
+    "endTime": {
+      "type": "datetime"
+    },
+    "steps": {
+      "type": "integer"
+    },
+    "caloriesBurned": {
+      "type": "decimal"
+    },
+    "distance": {
+      "type": "decimal"
+    },
+    "heartRateAvg": {
+      "type": "integer"
+    },
+    "source": {
+      "type": "enumeration",
+      "enum": [
+        "HealthKit",
+        "Strava",
+        "HealthConnect"
+      ]
+    },
+    "tag": {
+      "type": "string"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "step_sessions"
+    }
+  }
+}

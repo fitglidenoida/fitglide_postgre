@@ -1438,6 +1438,47 @@ export interface ApiSleeplogSleeplog extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiStepSessionStepSession extends Struct.CollectionTypeSchema {
+  collectionName: 'step_sessions';
+  info: {
+    displayName: 'step-session';
+    pluralName: 'step-sessions';
+    singularName: 'step-session';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    caloriesBurned: Schema.Attribute.Decimal;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    distance: Schema.Attribute.Decimal;
+    endTime: Schema.Attribute.DateTime;
+    heartRateAvg: Schema.Attribute.Integer;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::step-session.step-session'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    source: Schema.Attribute.Enumeration<
+      ['HealthKit', 'Strava', 'HealthConnect']
+    >;
+    startTime: Schema.Attribute.DateTime;
+    steps: Schema.Attribute.Integer;
+    tag: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiThreadThread extends Struct.CollectionTypeSchema {
   collectionName: 'threads';
   info: {
@@ -2248,6 +2289,10 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.role'
     >;
     sleeplogs: Schema.Attribute.Relation<'oneToMany', 'api::sleeplog.sleeplog'>;
+    step_sessions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::step-session.step-session'
+    >;
     strava_connected: Schema.Attribute.Boolean;
     threads: Schema.Attribute.Relation<'oneToMany', 'api::thread.thread'>;
     type: Schema.Attribute.Enumeration<['regular', 'coach', 'dietician']>;
@@ -2307,6 +2352,7 @@ declare module '@strapi/strapi' {
       'api::pack.pack': ApiPackPack;
       'api::post.post': ApiPostPost;
       'api::sleeplog.sleeplog': ApiSleeplogSleeplog;
+      'api::step-session.step-session': ApiStepSessionStepSession;
       'api::thread.thread': ApiThreadThread;
       'api::waitlist.waitlist': ApiWaitlistWaitlist;
       'api::weight-loss-story.weight-loss-story': ApiWeightLossStoryWeightLossStory;
