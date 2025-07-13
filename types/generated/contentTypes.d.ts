@@ -440,7 +440,17 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     challenge_status: Schema.Attribute.Enumeration<
       ['pending', 'accepted', 'completed']
     >;
+    challengee_pack: Schema.Attribute.Relation<'manyToOne', 'api::pack.pack'>;
+    challengee_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     challengeeId: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    challenger_pack: Schema.Attribute.Relation<'manyToOne', 'api::pack.pack'>;
+    challenger_user: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
     >;
@@ -451,6 +461,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    endDate: Schema.Attribute.Date;
     goal: Schema.Attribute.Integer & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -458,8 +469,16 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'api::challenge.challenge'
     > &
       Schema.Attribute.Private;
+    metric: Schema.Attribute.Enumeration<
+      ['steps', 'duration', 'distance', 'calories', 'reps', 'weightloss']
+    >;
+    participants: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
     posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
     publishedAt: Schema.Attribute.DateTime;
+    startDate: Schema.Attribute.Date;
     type: Schema.Attribute.Enumeration<
       ['Solo', 'Pack', 'PackVsPack', 'Public']
     > &
@@ -486,6 +505,7 @@ export interface ApiCheerCheer extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    isLive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::cheer.cheer'> &
       Schema.Attribute.Private;
@@ -499,9 +519,12 @@ export interface ApiCheerCheer extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    type: Schema.Attribute.Enumeration<['text', 'emoji', 'sound']> &
+      Schema.Attribute.DefaultTo<'text'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    workoutId: Schema.Attribute.String;
   };
 }
 
@@ -1067,10 +1090,12 @@ export interface ApiFriendFriend extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    receiverName: Schema.Attribute.String;
     sender: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    senderName: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1324,6 +1349,7 @@ export interface ApiMiniForumMiniForum extends Struct.CollectionTypeSchema {
 export interface ApiPackPack extends Struct.CollectionTypeSchema {
   collectionName: 'packs';
   info: {
+    description: '';
     displayName: 'pack';
     pluralName: 'packs';
     singularName: 'pack';
@@ -1336,9 +1362,14 @@ export interface ApiPackPack extends Struct.CollectionTypeSchema {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    challenges: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::challenge.challenge'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.String;
     gliders: Schema.Attribute.Relation<
       'manyToMany',
       'plugin::users-permissions.user'
@@ -1347,6 +1378,7 @@ export interface ApiPackPack extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::pack.pack'> &
       Schema.Attribute.Private;
+    logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
@@ -1356,6 +1388,8 @@ export interface ApiPackPack extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    visibility: Schema.Attribute.Enumeration<['public', 'private']> &
+      Schema.Attribute.DefaultTo<'public'>;
   };
 }
 
@@ -1380,6 +1414,10 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     data: Schema.Attribute.JSON & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'> &
       Schema.Attribute.Private;
@@ -2187,6 +2225,14 @@ export interface PluginUsersPermissionsUser
   attributes: {
     athlete_id: Schema.Attribute.Integer;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    challenge_participants: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::challenge.challenge'
+    >;
+    challenges: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::challenge.challenge'
+    >;
     challenges_challengee: Schema.Attribute.Relation<
       'oneToMany',
       'api::challenge.challenge'
@@ -2232,11 +2278,6 @@ export interface PluginUsersPermissionsUser
       }>;
     firstName: Schema.Attribute.String;
     forums: Schema.Attribute.Relation<'oneToMany', 'api::forum.forum'>;
-    friends_receiveds: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::friend.friend'
-    >;
-    friends_sent: Schema.Attribute.Relation<'oneToMany', 'api::friend.friend'>;
     googleId: Schema.Attribute.String;
     health_logs: Schema.Attribute.Relation<
       'oneToMany',
@@ -2283,10 +2324,19 @@ export interface PluginUsersPermissionsUser
     posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    received_cheers: Schema.Attribute.Relation<'oneToMany', 'api::cheer.cheer'>;
+    received_friend_requests: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::friend.friend'
+    >;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
+    >;
+    sent_friend_requests: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::friend.friend'
     >;
     sleeplogs: Schema.Attribute.Relation<'oneToMany', 'api::sleeplog.sleeplog'>;
     step_sessions: Schema.Attribute.Relation<

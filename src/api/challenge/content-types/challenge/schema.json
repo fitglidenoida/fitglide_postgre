@@ -53,6 +53,53 @@
       "relation": "oneToMany",
       "target": "api::post.post",
       "mappedBy": "challenge"
+    },
+    "challenger_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "challenges"
+    },
+    "challengee_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "challenges"
+    },
+    "challenger_pack": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pack.pack",
+      "inversedBy": "challenges"
+    },
+    "challengee_pack": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pack.pack",
+      "inversedBy": "challenges"
+    },
+    "participants": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "challenge_participants"
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "metric": {
+      "type": "enumeration",
+      "enum": [
+        "steps",
+        "duration",
+        "distance",
+        "calories",
+        "reps",
+        "weightloss"
+      ]
     }
   }
 }

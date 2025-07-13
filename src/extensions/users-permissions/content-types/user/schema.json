@@ -245,18 +245,6 @@
       "target": "api::forum.forum",
       "mappedBy": "users_permissions_user"
     },
-    "friends_sent": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::friend.friend",
-      "mappedBy": "sender"
-    },
-    "friends_receiveds": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::friend.friend",
-      "mappedBy": "receiver"
-    },
     "posts": {
       "type": "relation",
       "relation": "oneToMany",
@@ -280,6 +268,36 @@
       "relation": "oneToMany",
       "target": "api::step-session.step-session",
       "mappedBy": "users_permissions_user"
+    },
+    "received_cheers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cheer.cheer",
+      "mappedBy": "receiver"
+    },
+    "sent_friend_requests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::friend.friend",
+      "mappedBy": "sender"
+    },
+    "received_friend_requests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::friend.friend",
+      "mappedBy": "receiver"
+    },
+    "challenges": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::challenge.challenge",
+      "mappedBy": "challengee_user"
+    },
+    "challenge_participants": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::challenge.challenge",
+      "mappedBy": "participants"
     }
   }
 }

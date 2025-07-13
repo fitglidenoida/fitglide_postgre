@@ -32,13 +32,19 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "friends_sent"
+      "inversedBy": "sent_friend_requests"
     },
     "receiver": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "friends_receiveds"
+      "inversedBy": "received_friend_requests"
+    },
+    "senderName": {
+      "type": "string"
+    },
+    "receiverName": {
+      "type": "string"
     }
   }
 }

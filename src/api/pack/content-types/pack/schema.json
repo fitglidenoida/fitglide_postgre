@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pack",
     "pluralName": "packs",
-    "displayName": "pack"
+    "displayName": "pack",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -40,6 +41,33 @@
       "relation": "oneToMany",
       "target": "api::post.post",
       "mappedBy": "pack"
+    },
+    "challenges": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::challenge.challenge",
+      "mappedBy": "challengee_pack"
+    },
+    "description": {
+      "type": "string"
+    },
+    "logo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "visibility": {
+      "type": "enumeration",
+      "enum": [
+        "public",
+        "private"
+      ],
+      "default": "public"
     }
   }
 }

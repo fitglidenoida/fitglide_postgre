@@ -20,11 +20,28 @@
     "receiver": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "received_cheers"
     },
     "message": {
       "type": "string",
       "default": "Way to go!"
+    },
+    "workoutId": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "text",
+        "emoji",
+        "sound"
+      ],
+      "default": "text"
+    },
+    "isLive": {
+      "type": "boolean",
+      "default": true
     }
   }
 }
