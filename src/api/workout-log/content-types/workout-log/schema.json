@@ -42,13 +42,13 @@
       "type": "decimal"
     },
     "HeartRateAverage": {
-      "type": "biginteger"
+      "type": "integer"
     },
     "HeartRateMaximum": {
-      "type": "biginteger"
+      "type": "integer"
     },
     "HeartRateMinimum": {
-      "type": "biginteger"
+      "type": "integer"
     },
     "route": {
       "type": "json"

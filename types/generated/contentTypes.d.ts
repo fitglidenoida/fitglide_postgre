@@ -789,6 +789,11 @@ export interface ApiDietLogDietLog extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     meals: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
+    totalCalories: Schema.Attribute.Decimal;
+    totalCarbs: Schema.Attribute.Decimal;
+    totalFat: Schema.Attribute.Decimal;
+    totalFiber: Schema.Attribute.Decimal;
+    totalProtein: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1651,9 +1656,9 @@ export interface ApiWorkoutLogWorkoutLog extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     Distance: Schema.Attribute.Decimal;
     endTime: Schema.Attribute.DateTime;
-    HeartRateAverage: Schema.Attribute.BigInteger;
-    HeartRateMaximum: Schema.Attribute.BigInteger;
-    HeartRateMinimum: Schema.Attribute.BigInteger;
+    HeartRateAverage: Schema.Attribute.Integer;
+    HeartRateMaximum: Schema.Attribute.Integer;
+    HeartRateMinimum: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

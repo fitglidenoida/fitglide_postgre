@@ -22,6 +22,21 @@
     },
     "meals": {
       "type": "json"
+    },
+    "totalCalories": {
+      "type": "decimal"
+    },
+    "totalProtein": {
+      "type": "decimal"
+    },
+    "totalCarbs": {
+      "type": "decimal"
+    },
+    "totalFat": {
+      "type": "decimal"
+    },
+    "totalFiber": {
+      "type": "decimal"
     }
   }
 }
