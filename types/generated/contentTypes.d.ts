@@ -1114,6 +1114,7 @@ export interface ApiHealthLogHealthLog extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    badges_earned: Schema.Attribute.JSON;
     caloriesBurned: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
