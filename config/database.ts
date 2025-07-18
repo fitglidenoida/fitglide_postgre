@@ -11,7 +11,6 @@ export default ({ env }) => {
         user: env('DATABASE_USERNAME', 'fitglide_dbadmin'),
         password: env('DATABASE_PASSWORD', 'S@ndysango1982'),
         ssl: env.bool('DATABASE_SSL', false),
-        timezone: 'Asia/Kolkata', // or '+05:30'
 
       },
       pool: { min: 2, max: 10 },
