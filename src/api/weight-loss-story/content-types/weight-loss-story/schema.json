@@ -58,7 +58,8 @@
       "type": "enumeration",
       "enum": [
         "Everyone",
-        "Friends"
+        "Friends",
+        "Pack"
       ]
     },
     "users_permissions_user": {
@@ -69,6 +70,34 @@
     },
     "firstName": {
       "type": "string"
+    },
+    "storyType": {
+      "type": "enumeration",
+      "enum": [
+        "Weight Loss",
+        "Workout",
+        "Transformation",
+        "Hydration",
+        "Sleep",
+        "Mindfulness",
+        "Consistency",
+        "Other"
+      ]
+    },
+    "achievementTags": {
+      "type": "json"
+    },
+    "goalAchievedText": {
+      "type": "string"
+    },
+    "metrics": {
+      "type": "json"
+    },
+    "title": {
+      "type": "string"
+    },
+    "sharedExternally": {
+      "type": "boolean"
     }
   }
 }

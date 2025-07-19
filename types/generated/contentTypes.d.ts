@@ -1606,10 +1606,12 @@ export interface ApiWeightLossStoryWeightLossStory
     draftAndPublish: true;
   };
   attributes: {
+    achievementTags: Schema.Attribute.JSON;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     firstName: Schema.Attribute.String;
+    goalAchievedText: Schema.Attribute.String;
     likes: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -1617,13 +1619,28 @@ export interface ApiWeightLossStoryWeightLossStory
       'api::weight-loss-story.weight-loss-story'
     > &
       Schema.Attribute.Private;
+    metrics: Schema.Attribute.JSON;
     nowPhoto: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     nowWeight: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
+    sharedExternally: Schema.Attribute.Boolean;
     storyId: Schema.Attribute.String;
     storyText: Schema.Attribute.Text;
+    storyType: Schema.Attribute.Enumeration<
+      [
+        'Weight Loss',
+        'Workout',
+        'Transformation',
+        'Hydration',
+        'Sleep',
+        'Mindfulness',
+        'Consistency',
+        'Other',
+      ]
+    >;
     thenPhoto: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     thenWeight: Schema.Attribute.Integer;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1631,7 +1648,7 @@ export interface ApiWeightLossStoryWeightLossStory
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    visibility: Schema.Attribute.Enumeration<['Everyone', 'Friends']>;
+    visibility: Schema.Attribute.Enumeration<['Everyone', 'Friends', 'Pack']>;
     weightLost: Schema.Attribute.Integer;
   };
 }
