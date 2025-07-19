@@ -490,8 +490,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     startDate: Schema.Attribute.Date;
     tags: Schema.Attribute.JSON;
     title: Schema.Attribute.String;
-    type: Schema.Attribute.Enumeration<['Solo', 'Pack', 'PackVsPack']> &
-      Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<['Solo', 'Pack', 'PackVsPack']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

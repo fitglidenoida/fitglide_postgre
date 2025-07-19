@@ -42,7 +42,7 @@
         "Pack",
         "PackVsPack"
       ],
-      "required": true
+      "required": false
     },
     "winner": {
       "type": "string"
@@ -121,14 +121,15 @@
       "type": "json"
     },
     "icon": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "isRecommended": {
       "type": "boolean"
