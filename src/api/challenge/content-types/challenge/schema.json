@@ -40,8 +40,7 @@
       "enum": [
         "Solo",
         "Pack",
-        "PackVsPack",
-        "Public"
+        "PackVsPack"
       ],
       "required": true
     },
@@ -100,6 +99,42 @@
         "reps",
         "weightloss"
       ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "Beginner",
+        "Intermediate",
+        "Pro"
+      ]
+    },
+    "isPublic": {
+      "type": "boolean"
+    },
+    "tags": {
+      "type": "json"
+    },
+    "icon": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "isRecommended": {
+      "type": "boolean"
+    },
+    "maxParticipants": {
+      "type": "integer"
     }
   }
 }

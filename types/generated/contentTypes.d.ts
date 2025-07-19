@@ -461,14 +461,23 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
     endDate: Schema.Attribute.Date;
     goal: Schema.Attribute.Integer & Schema.Attribute.Required;
+    icon: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    isPublic: Schema.Attribute.Boolean;
+    isRecommended: Schema.Attribute.Boolean;
+    level: Schema.Attribute.Enumeration<['Beginner', 'Intermediate', 'Pro']>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::challenge.challenge'
     > &
       Schema.Attribute.Private;
+    maxParticipants: Schema.Attribute.Integer;
     metric: Schema.Attribute.Enumeration<
       ['steps', 'duration', 'distance', 'calories', 'reps', 'weightloss']
     >;
@@ -479,9 +488,9 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
     publishedAt: Schema.Attribute.DateTime;
     startDate: Schema.Attribute.Date;
-    type: Schema.Attribute.Enumeration<
-      ['Solo', 'Pack', 'PackVsPack', 'Public']
-    > &
+    tags: Schema.Attribute.JSON;
+    title: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<['Solo', 'Pack', 'PackVsPack']> &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
