@@ -1065,7 +1065,7 @@ export interface ApiFitcoinLogFitcoinLog extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    reason: Schema.Attribute.Enumeration<['badge', 'streak']>;
+    reason: Schema.Attribute.Enumeration<['badge', 'streak', 'achievement']>;
     referenceId: Schema.Attribute.UID;
     sourceText: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;

@@ -21,7 +21,8 @@
       "type": "enumeration",
       "enum": [
         "badge",
-        "streak"
+        "streak",
+        "achievement"
       ]
     },
     "referenceId": {
