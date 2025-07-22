@@ -1043,6 +1043,7 @@ export interface ApiExerciseExercise extends Struct.CollectionTypeSchema {
 export interface ApiFitcoinLogFitcoinLog extends Struct.CollectionTypeSchema {
   collectionName: 'fitcoin_logs';
   info: {
+    description: '';
     displayName: 'fitcoin-log';
     pluralName: 'fitcoin-logs';
     singularName: 'fitcoin-log';
@@ -1055,6 +1056,7 @@ export interface ApiFitcoinLogFitcoinLog extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     date: Schema.Attribute.DateTime;
+    fitcoin_balance: Schema.Attribute.Integer;
     fitcoins: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<

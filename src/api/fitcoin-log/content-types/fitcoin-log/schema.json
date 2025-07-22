@@ -4,7 +4,8 @@
   "info": {
     "singularName": "fitcoin-log",
     "pluralName": "fitcoin-logs",
-    "displayName": "fitcoin-log"
+    "displayName": "fitcoin-log",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -34,6 +35,9 @@
     },
     "sourceText": {
       "type": "string"
+    },
+    "fitcoin_balance": {
+      "type": "integer"
     }
   }
 }
