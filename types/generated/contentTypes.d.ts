@@ -1040,6 +1040,42 @@ export interface ApiExerciseExercise extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFitcoinLogFitcoinLog extends Struct.CollectionTypeSchema {
+  collectionName: 'fitcoin_logs';
+  info: {
+    displayName: 'fitcoin-log';
+    pluralName: 'fitcoin-logs';
+    singularName: 'fitcoin-log';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.DateTime;
+    fitcoins: Schema.Attribute.Integer;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fitcoin-log.fitcoin-log'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    reason: Schema.Attribute.Enumeration<['badge', 'streak']>;
+    referenceId: Schema.Attribute.UID;
+    sourceText: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiForumForum extends Struct.CollectionTypeSchema {
   collectionName: 'forums';
   info: {
@@ -2308,6 +2344,10 @@ export interface PluginUsersPermissionsUser
         minLength: 6;
       }>;
     firstName: Schema.Attribute.String;
+    fitcoin_logs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fitcoin-log.fitcoin-log'
+    >;
     forums: Schema.Attribute.Relation<'oneToMany', 'api::forum.forum'>;
     googleId: Schema.Attribute.String;
     health_logs: Schema.Attribute.Relation<
@@ -2423,6 +2463,7 @@ declare module '@strapi/strapi' {
       'api::dietician.dietician': ApiDieticianDietician;
       'api::equipment.equipment': ApiEquipmentEquipment;
       'api::exercise.exercise': ApiExerciseExercise;
+      'api::fitcoin-log.fitcoin-log': ApiFitcoinLogFitcoinLog;
       'api::forum.forum': ApiForumForum;
       'api::friend.friend': ApiFriendFriend;
       'api::health-log.health-log': ApiHealthLogHealthLog;

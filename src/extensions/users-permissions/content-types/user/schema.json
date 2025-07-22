@@ -298,6 +298,12 @@
       "relation": "manyToMany",
       "target": "api::challenge.challenge",
       "mappedBy": "participants"
+    },
+    "fitcoin_logs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fitcoin-log.fitcoin-log",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
