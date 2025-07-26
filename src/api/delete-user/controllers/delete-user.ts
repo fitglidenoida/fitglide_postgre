@@ -46,10 +46,10 @@ const deleteUser = async (ctx) => {
       }
     }
 
-    // Finally delete the user from users-permissions
-    await strapi.entityService.delete('plugin::users-permissions.user', userId);
+    // Don't delete the user here - let the iOS app handle it separately
+    // await strapi.entityService.delete('plugin::users-permissions.user', userId);
 
-    ctx.send({ message: '✅ User and all related data deleted successfully.' });
+    ctx.send({ message: '✅ User data cleaned up successfully. User account can now be deleted.' });
   } catch (error) {
     strapi.log.error('❌ Error during account deletion:', error);
     ctx.badRequest('Failed to delete user account', { error: error.message });
