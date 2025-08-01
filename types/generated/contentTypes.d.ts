@@ -2421,7 +2421,7 @@ export interface PluginUsersPermissionsUser
       'api::step-session.step-session'
     >;
     strava_connected: Schema.Attribute.Boolean;
-    themePreference: Schema.Attribute.JSON;
+    themePreference: Schema.Attribute.Enumeration<['light', 'dark', 'system']>;
     threads: Schema.Attribute.Relation<'oneToMany', 'api::thread.thread'>;
     type: Schema.Attribute.Enumeration<['regular', 'coach', 'dietician']>;
     updatedAt: Schema.Attribute.DateTime;

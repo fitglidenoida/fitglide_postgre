@@ -309,7 +309,8 @@
       "type": "json"
     },
     "themePreference": {
-      "type": "json"
+      "type": "enumeration",
+      "enum": ["light", "dark", "system"]
     }
   }
 }
