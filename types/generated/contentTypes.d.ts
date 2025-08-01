@@ -1647,7 +1647,7 @@ export interface ApiWeightLossStoryWeightLossStory
   collectionName: 'weight_loss_stories';
   info: {
     description: '';
-    displayName: 'WeightLossStory';
+    displayName: 'Achievement';
     pluralName: 'weight-loss-stories';
     singularName: 'weight-loss-story';
   };
