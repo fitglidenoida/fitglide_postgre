@@ -1249,6 +1249,9 @@ export interface ApiHealthVitalHealthVital extends Struct.CollectionTypeSchema {
       ['Lean-(0.25 kg/week)', 'Aggressive-(0.5 kg/week)', 'Custom']
     >;
     WeightInKilograms: Schema.Attribute.Integer;
+    wellnessFactors: Schema.Attribute.JSON;
+    wellnessRecommendations: Schema.Attribute.JSON;
+    wellnessScore: Schema.Attribute.Decimal;
   };
 }
 
@@ -2395,6 +2398,7 @@ export interface PluginUsersPermissionsUser
       }>;
     picture: Schema.Attribute.String;
     posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
+    privacySettings: Schema.Attribute.JSON;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     received_cheers: Schema.Attribute.Relation<'oneToMany', 'api::cheer.cheer'>;
@@ -2417,6 +2421,7 @@ export interface PluginUsersPermissionsUser
       'api::step-session.step-session'
     >;
     strava_connected: Schema.Attribute.Boolean;
+    themePreference: Schema.Attribute.JSON;
     threads: Schema.Attribute.Relation<'oneToMany', 'api::thread.thread'>;
     type: Schema.Attribute.Enumeration<['regular', 'coach', 'dietician']>;
     updatedAt: Schema.Attribute.DateTime;

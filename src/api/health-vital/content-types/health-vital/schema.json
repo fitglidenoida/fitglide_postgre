@@ -77,6 +77,15 @@
         "Heavy exercise (6-7 days/week)",
         "Very heavy exercise (Twice/day)"
       ]
+    },
+    "wellnessScore": {
+      "type": "decimal"
+    },
+    "wellnessFactors": {
+      "type": "json"
+    },
+    "wellnessRecommendations": {
+      "type": "json"
     }
   }
 }

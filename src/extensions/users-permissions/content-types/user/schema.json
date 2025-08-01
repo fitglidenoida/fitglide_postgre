@@ -304,6 +304,12 @@
       "relation": "oneToMany",
       "target": "api::fitcoin-log.fitcoin-log",
       "mappedBy": "users_permissions_user"
+    },
+    "privacySettings": {
+      "type": "json"
+    },
+    "themePreference": {
+      "type": "json"
     }
   }
 }

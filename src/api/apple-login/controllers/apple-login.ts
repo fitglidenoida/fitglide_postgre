@@ -3,7 +3,11 @@ import jwksClient from 'jwks-rsa';
 
 export default {
   async login(ctx: any) {
-    const { id_token } = ctx.request.body as { id_token: string };
+    const { id_token, firstName, lastName } = ctx.request.body as { 
+      id_token: string;
+      firstName?: string;
+      lastName?: string;
+    };
 
     if (!id_token) {
       console.log('No id_token provided in request');
@@ -28,26 +32,42 @@ export default {
 
       if (!strapiUser) {
         console.log(`Creating new user with email: ${email}`);
-	const { given_name: firstName, family_name: lastName } = decodedToken; // or pass from client
+        // Use provided firstName/lastName or try to extract from token
+        const { given_name: tokenFirstName, family_name: tokenLastName } = decodedToken;
+        const finalFirstName = firstName || tokenFirstName;
+        const finalLastName = lastName || tokenLastName;
+        
+        console.log(`Creating user with firstName=${finalFirstName}, lastName=${finalLastName}`);
 
-strapiUser = await strapi.entityService.create('plugin::users-permissions.user', {
-  data: {
-    email,
-    username: email.split('@')[0],
-    provider: 'apple',
-    password: Math.random().toString(36).slice(-8),
-    confirmed: true,
-    blocked: false,
-    appleId: appleUserId,
-    firstName,
-    lastName,
-    role: 1,
-  },
-});
+        strapiUser = await strapi.entityService.create('plugin::users-permissions.user', {
+          data: {
+            email,
+            username: email.split('@')[0],
+            provider: 'apple',
+            password: Math.random().toString(36).slice(-8),
+            confirmed: true,
+            blocked: false,
+            appleId: appleUserId,
+            firstName: finalFirstName,
+            lastName: finalLastName,
+            role: 1,
+          },
+        });
 
         console.log(`User created: ${strapiUser.email}`);
       } else {
         console.log(`User logged in: ${strapiUser.email}`);
+        // Update existing user's name if provided and different
+        if ((firstName && firstName !== strapiUser.firstName) || 
+            (lastName && lastName !== strapiUser.lastName)) {
+          console.log(`Updating user profile with firstName=${firstName}, lastName=${lastName}`);
+          strapiUser = await strapi.entityService.update('plugin::users-permissions.user', strapiUser.id, {
+            data: {
+              firstName: firstName || strapiUser.firstName,
+              lastName: lastName || strapiUser.lastName,
+            },
+          });
+        }
       }
 
       // Generate JWT
@@ -58,12 +78,11 @@ strapiUser = await strapi.entityService.create('plugin::users-permissions.user',
         .issue({ id: strapiUser.id });
 
       const sanitizedUser = {
-  id: strapiUser.id,
-  email: strapiUser.email,
-  firstName: strapiUser.firstName || null,
-  lastName: strapiUser.lastName || null,
-};
-
+        id: strapiUser.id,
+        email: strapiUser.email,
+        firstName: strapiUser.firstName || null,
+        lastName: strapiUser.lastName || null,
+      };
 
       return ctx.send({
         message: 'Login successful',
