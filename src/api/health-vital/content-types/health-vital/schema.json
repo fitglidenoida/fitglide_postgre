@@ -79,7 +79,8 @@
       ]
     },
     "wellnessScore": {
-      "type": "decimal"
+      "type": "decimal",
+      "nullable": true
     },
     "wellnessFactors": {
       "type": "json"

@@ -1192,6 +1192,9 @@ export interface ApiHealthLogHealthLog extends Struct.CollectionTypeSchema {
     >;
     waterIntake: Schema.Attribute.Decimal;
     weight: Schema.Attribute.Decimal;
+    wellnessFactors: Schema.Attribute.JSON;
+    wellnessRecommendations: Schema.Attribute.JSON;
+    wellnessScore: Schema.Attribute.Decimal;
   };
 }
 

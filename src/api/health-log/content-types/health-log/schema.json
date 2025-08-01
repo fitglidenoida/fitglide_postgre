@@ -53,6 +53,16 @@
     },
     "badges_earned": {
       "type": "json"
+    },
+    "wellnessScore": {
+      "type": "decimal",
+      "nullable": true
+    },
+    "wellnessFactors": {
+      "type": "json"
+    },
+    "wellnessRecommendations": {
+      "type": "json"
     }
   }
 }
