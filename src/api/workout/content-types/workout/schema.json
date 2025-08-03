@@ -122,6 +122,82 @@
     },
     "exercise_order": {
       "type": "json"
+    },
+    "plan_name": {
+      "type": "string"
+    },
+    "plan_description": {
+      "type": "text"
+    },
+    "plan_duration_weeks": {
+      "type": "integer"
+    },
+    "plan_level": {
+      "type": "enumeration",
+      "enum": [
+        "Beginner",
+        "Intermediate",
+        "Advanced"
+      ]
+    },
+    "plan_category": {
+      "type": "enumeration",
+      "enum": [
+        "Running",
+        "Strength",
+        "Cardio",
+        "Mixed",
+        "Weight Loss"
+      ]
+    },
+    "day_number": {
+      "type": "integer"
+    },
+    "week_number": {
+      "type": "integer"
+    },
+    "rest_day": {
+      "type": "boolean"
+    },
+    "is_premium": {
+      "type": "boolean"
+    },
+    "premium_tier": {
+      "type": "enumeration",
+      "enum": [
+        "Free",
+        "Basic",
+        "Pro"
+      ]
+    },
+    "plan_thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "plan_difficulty_rating": {
+      "type": "decimal"
+    },
+    "estimated_calories_per_week": {
+      "type": "integer"
+    },
+    "plan_start_date": {
+      "type": "date"
+    },
+    "plan_completion_percentage": {
+      "type": "decimal"
+    },
+    "current_week": {
+      "type": "integer"
+    },
+    "current_day": {
+      "type": "integer"
     }
   }
 }

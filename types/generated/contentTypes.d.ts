@@ -1772,15 +1772,20 @@ export interface ApiWorkoutWorkout extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    current_day: Schema.Attribute.Integer;
+    current_week: Schema.Attribute.Integer;
+    day_number: Schema.Attribute.Integer;
     Description: Schema.Attribute.String;
     Distance: Schema.Attribute.Decimal;
     DistancePlanned: Schema.Attribute.Decimal;
     endTime: Schema.Attribute.DateTime;
+    estimated_calories_per_week: Schema.Attribute.Integer;
     exercise_order: Schema.Attribute.JSON;
     exercises: Schema.Attribute.Relation<'oneToMany', 'api::exercise.exercise'>;
     HeartRateAverage: Schema.Attribute.BigInteger;
     HeartRateMaximum: Schema.Attribute.BigInteger;
     HeartRateMinimum: Schema.Attribute.BigInteger;
+    is_premium: Schema.Attribute.Boolean;
     is_template: Schema.Attribute.Boolean;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -1788,7 +1793,24 @@ export interface ApiWorkoutWorkout extends Struct.CollectionTypeSchema {
       'api::workout.workout'
     > &
       Schema.Attribute.Private;
+    plan_category: Schema.Attribute.Enumeration<
+      ['Running', 'Strength', 'Cardio', 'Mixed', 'Weight Loss']
+    >;
+    plan_completion_percentage: Schema.Attribute.Decimal;
+    plan_description: Schema.Attribute.Text;
+    plan_difficulty_rating: Schema.Attribute.Decimal;
+    plan_duration_weeks: Schema.Attribute.Integer;
+    plan_level: Schema.Attribute.Enumeration<
+      ['Beginner', 'Intermediate', 'Advanced']
+    >;
+    plan_name: Schema.Attribute.String;
+    plan_start_date: Schema.Attribute.Date;
+    plan_thumbnail: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    premium_tier: Schema.Attribute.Enumeration<['Free', 'Basic', 'Pro']>;
     publishedAt: Schema.Attribute.DateTime;
+    rest_day: Schema.Attribute.Boolean;
     sport_type: Schema.Attribute.Enumeration<
       [
         'Running',
@@ -1833,6 +1855,7 @@ export interface ApiWorkoutWorkout extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    week_number: Schema.Attribute.Integer;
     workout_logs: Schema.Attribute.Relation<
       'oneToMany',
       'api::workout-log.workout-log'

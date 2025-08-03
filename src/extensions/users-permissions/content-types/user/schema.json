@@ -310,7 +310,11 @@
     },
     "themePreference": {
       "type": "enumeration",
-      "enum": ["light", "dark", "system"]
+      "enum": [
+        "light",
+        "dark",
+        "system"
+      ]
     }
   }
 }
