@@ -1,0 +1,80 @@
+{
+  "kind": "collectionType",
+  "collectionName": "period_symptoms",
+  "info": {
+    "singularName": "period-symptom",
+    "pluralName": "period-symptoms",
+    "displayName": "period-symptom",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "period_symptoms"
+    },
+    "period": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::period.period",
+      "inversedBy": "period_symptoms"
+    },
+    "name": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "enumeration",
+      "enum": [
+        "mild",
+        "moderate",
+        "severe"
+      ],
+      "default": "mild",
+      "required": true
+    },
+    "date": {
+      "type": "date"
+    },
+    "time": {
+      "type": "time"
+    },
+    "cycleDay": {
+      "type": "integer",
+      "max": 35,
+      "min": 1
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "physical",
+        "emotional",
+        "cognitive",
+        "digestive",
+        "other"
+      ],
+      "default": "physical"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "source": {
+      "type": "enumeration",
+      "enum": [
+        "manual",
+        "healthkit",
+        "prediction"
+      ],
+      "default": "manual"
+    },
+    "healthKitSampleId": {
+      "type": "string"
+    }
+  }
+}

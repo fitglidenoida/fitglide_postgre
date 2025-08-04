@@ -1451,6 +1451,134 @@ export interface ApiPackPack extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPeriodSymptomPeriodSymptom
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'period_symptoms';
+  info: {
+    description: '';
+    displayName: 'period-symptom';
+    pluralName: 'period-symptoms';
+    singularName: 'period-symptom';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    category: Schema.Attribute.Enumeration<
+      ['physical', 'emotional', 'cognitive', 'digestive', 'other']
+    > &
+      Schema.Attribute.DefaultTo<'physical'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cycleDay: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 35;
+          min: 1;
+        },
+        number
+      >;
+    date: Schema.Attribute.Date;
+    healthKitSampleId: Schema.Attribute.String;
+    icon: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::period-symptom.period-symptom'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    notes: Schema.Attribute.String;
+    period: Schema.Attribute.Relation<'manyToOne', 'api::period.period'>;
+    publishedAt: Schema.Attribute.DateTime;
+    severity: Schema.Attribute.Enumeration<['mild', 'moderate', 'severe']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'mild'>;
+    source: Schema.Attribute.Enumeration<
+      ['manual', 'healthkit', 'prediction']
+    > &
+      Schema.Attribute.DefaultTo<'manual'>;
+    time: Schema.Attribute.Time;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiPeriodPeriod extends Struct.CollectionTypeSchema {
+  collectionName: 'periods';
+  info: {
+    description: '';
+    displayName: 'period';
+    pluralName: 'periods';
+    singularName: 'period';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    confidence: Schema.Attribute.Decimal;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cycleDay: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 35;
+          min: 1;
+        },
+        number
+      >;
+    cycleLength: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 45;
+          min: 20;
+        },
+        number
+      >;
+    duration: Schema.Attribute.Integer;
+    endDate: Schema.Attribute.Date;
+    flowIntensity: Schema.Attribute.Enumeration<['light', 'medium', 'heavy']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'medium'>;
+    healthKitSampleId: Schema.Attribute.String;
+    isPrediction: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::period.period'
+    > &
+      Schema.Attribute.Private;
+    notes: Schema.Attribute.String;
+    period_symptoms: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::period-symptom.period-symptom'
+    >;
+    periodId: Schema.Attribute.UID;
+    predictionAccuracy: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    source: Schema.Attribute.Enumeration<
+      ['manual', 'healthkit', 'prediction']
+    > &
+      Schema.Attribute.DefaultTo<'manual'>;
+    startDate: Schema.Attribute.Date;
+    symptoms: Schema.Attribute.JSON;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiPostPost extends Struct.CollectionTypeSchema {
   collectionName: 'posts';
   info: {
@@ -2422,6 +2550,11 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    period_symptoms: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::period-symptom.period-symptom'
+    >;
+    periods: Schema.Attribute.Relation<'oneToMany', 'api::period.period'>;
     picture: Schema.Attribute.String;
     posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
     privacySettings: Schema.Attribute.JSON;
@@ -2505,6 +2638,8 @@ declare module '@strapi/strapi' {
       'api::meal.meal': ApiMealMeal;
       'api::mini-forum.mini-forum': ApiMiniForumMiniForum;
       'api::pack.pack': ApiPackPack;
+      'api::period-symptom.period-symptom': ApiPeriodSymptomPeriodSymptom;
+      'api::period.period': ApiPeriodPeriod;
       'api::post.post': ApiPostPost;
       'api::sleeplog.sleeplog': ApiSleeplogSleeplog;
       'api::step-session.step-session': ApiStepSessionStepSession;

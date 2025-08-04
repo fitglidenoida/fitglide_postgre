@@ -315,6 +315,18 @@
         "dark",
         "system"
       ]
+    },
+    "periods": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::period.period",
+      "mappedBy": "users_permissions_user"
+    },
+    "period_symptoms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::period-symptom.period-symptom",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

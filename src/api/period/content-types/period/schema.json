@@ -1,0 +1,86 @@
+{
+  "kind": "collectionType",
+  "collectionName": "periods",
+  "info": {
+    "singularName": "period",
+    "pluralName": "periods",
+    "displayName": "period",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "periods"
+    },
+    "period_symptoms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::period-symptom.period-symptom",
+      "mappedBy": "period"
+    },
+    "periodId": {
+      "type": "uid"
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "duration": {
+      "type": "integer"
+    },
+    "flowIntensity": {
+      "type": "enumeration",
+      "enum": [
+        "light",
+        "medium",
+        "heavy"
+      ],
+      "required": true,
+      "default": "medium"
+    },
+    "cycleDay": {
+      "type": "integer",
+      "max": 35,
+      "min": 1
+    },
+    "cycleLength": {
+      "type": "integer",
+      "max": 45,
+      "min": 20
+    },
+    "symptoms": {
+      "type": "json"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "source": {
+      "type": "enumeration",
+      "enum": [
+        "manual",
+        "healthkit",
+        "prediction"
+      ],
+      "default": "manual"
+    },
+    "confidence": {
+      "type": "decimal"
+    },
+    "isPrediction": {
+      "type": "boolean"
+    },
+    "predictionAccuracy": {
+      "type": "decimal"
+    },
+    "healthKitSampleId": {
+      "type": "string"
+    }
+  }
+}
