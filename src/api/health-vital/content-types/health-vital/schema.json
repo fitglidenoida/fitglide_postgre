@@ -87,6 +87,69 @@
     },
     "wellnessRecommendations": {
       "type": "json"
+    },
+    "life_goal_category": {
+      "type": "string"
+    },
+    "goal_timeline": {
+      "type": "integer"
+    },
+    "goal_commitment_level": {
+      "type": "string"
+    },
+    "goal_start_date": {
+      "type": "date"
+    },
+    "goal_target_date": {
+      "type": "date"
+    },
+    "goal_progress_percentage": {
+      "type": "decimal"
+    },
+    "goal_current_milestone": {
+      "type": "string"
+    },
+    "goal_predicted_timeline": {
+      "type": "integer"
+    },
+    "goal_recommended_activities": {
+      "type": "json"
+    },
+    "goal_recommended_nutrition": {
+      "type": "json"
+    },
+    "goal_success_probability": {
+      "type": "decimal"
+    },
+    "secondary_goals": {
+      "type": "json"
+    },
+    "goal_milestones": {
+      "type": "json"
+    },
+    "goal_achievements": {
+      "type": "json"
+    },
+    "goal_insights": {
+      "type": "json"
+    },
+    "goal_recommendations": {
+      "type": "json"
+    },
+    "goal_energy_score": {
+      "type": "decimal"
+    },
+    "goal_confidence_score": {
+      "type": "decimal"
+    },
+    "goal_stress_score": {
+      "type": "decimal"
+    },
+    "goal_social_score": {
+      "type": "decimal"
+    },
+    "goal_health_score": {
+      "type": "decimal"
     }
   }
 }

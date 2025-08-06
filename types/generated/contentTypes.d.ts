@@ -1227,7 +1227,27 @@ export interface ApiHealthVitalHealthVital extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     date_of_birth: Schema.Attribute.Date;
     gender: Schema.Attribute.Enumeration<['Male', 'Female']>;
+    goal_achievements: Schema.Attribute.JSON;
+    goal_commitment_level: Schema.Attribute.String;
+    goal_confidence_score: Schema.Attribute.Decimal;
+    goal_current_milestone: Schema.Attribute.String;
+    goal_energy_score: Schema.Attribute.Decimal;
+    goal_health_score: Schema.Attribute.Decimal;
+    goal_insights: Schema.Attribute.JSON;
+    goal_milestones: Schema.Attribute.JSON;
+    goal_predicted_timeline: Schema.Attribute.Integer;
+    goal_progress_percentage: Schema.Attribute.Decimal;
+    goal_recommendations: Schema.Attribute.JSON;
+    goal_recommended_activities: Schema.Attribute.JSON;
+    goal_recommended_nutrition: Schema.Attribute.JSON;
+    goal_social_score: Schema.Attribute.Decimal;
+    goal_start_date: Schema.Attribute.Date;
+    goal_stress_score: Schema.Attribute.Decimal;
+    goal_success_probability: Schema.Attribute.Decimal;
+    goal_target_date: Schema.Attribute.Date;
+    goal_timeline: Schema.Attribute.Integer;
     height: Schema.Attribute.Integer;
+    life_goal_category: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1236,6 +1256,7 @@ export interface ApiHealthVitalHealthVital extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     PercentFat: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
+    secondary_goals: Schema.Attribute.JSON;
     stepGoal: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
