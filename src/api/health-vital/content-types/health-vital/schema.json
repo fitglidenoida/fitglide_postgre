@@ -150,6 +150,9 @@
     },
     "goal_health_score": {
       "type": "decimal"
+    },
+    "life_goal_type": {
+      "type": "string"
     }
   }
 }

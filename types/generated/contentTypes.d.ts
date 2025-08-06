@@ -1248,6 +1248,7 @@ export interface ApiHealthVitalHealthVital extends Struct.CollectionTypeSchema {
     goal_timeline: Schema.Attribute.Integer;
     height: Schema.Attribute.Integer;
     life_goal_category: Schema.Attribute.String;
+    life_goal_type: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
