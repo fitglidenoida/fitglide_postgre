@@ -13,11 +13,73 @@
     "title": {
       "type": "string"
     },
+    "message_text": {
+      "type": "text",
+      "required": true
+    },
     "yesterday_line": {
       "type": "text"
     },
     "today_line": {
       "type": "text"
+    },
+    "message_type": {
+      "type": "enumeration",
+      "enum": [
+        "achievement_celebration",
+        "level_up",
+        "streak_milestone",
+        "daily_motivation",
+        "progress_motivation",
+        "festival_context",
+        "workout_completion",
+        "wellness_reminder"
+      ],
+      "default": "daily_motivation"
+    },
+    "priority": {
+      "type": "integer",
+      "default": 5,
+      "min": 1,
+      "max": 10
+    },
+    "trigger_condition": {
+      "type": "text"
+    },
+    "achievement_category": {
+      "type": "enumeration",
+      "enum": [
+        "fitness",
+        "nutrition", 
+        "social",
+        "streak",
+        "milestone",
+        "wellness",
+        "challenge"
+      ]
+    },
+    "festival_context": {
+      "type": "enumeration",
+      "enum": [
+        "diwali",
+        "holi",
+        "rakhi",
+        "independence_day",
+        "republic_day",
+        "any"
+      ],
+      "default": "any"
+    },
+    "streak_days": {
+      "type": "integer"
+    },
+    "min_level": {
+      "type": "integer",
+      "default": 1
+    },
+    "max_level": {
+      "type": "integer",
+      "default": 5
     },
     "badge": {
       "type": "enumeration",
@@ -37,7 +99,19 @@
       ]
     },
     "is_premium": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "usage_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "last_used": {
+      "type": "datetime"
     }
   }
 }

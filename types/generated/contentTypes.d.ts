@@ -653,26 +653,71 @@ export interface ApiDesiMessageDesiMessage extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    achievement_category: Schema.Attribute.Enumeration<
+      [
+        'fitness',
+        'nutrition',
+        'social',
+        'streak',
+        'milestone',
+        'wellness',
+        'challenge',
+      ]
+    >;
     badge: Schema.Attribute.Enumeration<['fitness', 'motivation', 'hydration']>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    is_premium: Schema.Attribute.Boolean;
+    festival_context: Schema.Attribute.Enumeration<
+      ['diwali', 'holi', 'rakhi', 'independence_day', 'republic_day', 'any']
+    > &
+      Schema.Attribute.DefaultTo<'any'>;
+    is_active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    is_premium: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     language_style: Schema.Attribute.Enumeration<
       ['hinglish', 'desi', 'funny', 'pure_english']
     >;
+    last_used: Schema.Attribute.DateTime;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::desi-message.desi-message'
     > &
       Schema.Attribute.Private;
+    max_level: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<5>;
+    message_text: Schema.Attribute.Text & Schema.Attribute.Required;
+    message_type: Schema.Attribute.Enumeration<
+      [
+        'achievement_celebration',
+        'level_up',
+        'streak_milestone',
+        'daily_motivation',
+        'progress_motivation',
+        'festival_context',
+        'workout_completion',
+        'wellness_reminder',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'daily_motivation'>;
+    min_level: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+    priority: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<5>;
     publishedAt: Schema.Attribute.DateTime;
+    streak_days: Schema.Attribute.Integer;
     title: Schema.Attribute.String;
     today_line: Schema.Attribute.Text;
+    trigger_condition: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    usage_count: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     yesterday_line: Schema.Attribute.Text;
   };
 }
