@@ -25,7 +25,7 @@
     },
     "goal": {
       "type": "integer",
-      "required": true
+      "required": false
     },
     "challenge_status": {
       "type": "enumeration",
@@ -89,17 +89,6 @@
     "endDate": {
       "type": "date"
     },
-    "metric": {
-      "type": "enumeration",
-      "enum": [
-        "steps",
-        "duration",
-        "distance",
-        "calories",
-        "reps",
-        "weightloss"
-      ]
-    },
     "title": {
       "type": "string"
     },
@@ -136,6 +125,23 @@
     },
     "maxParticipants": {
       "type": "integer"
+    },
+    "metrics": {
+      "type": "json"
+    },
+    "activities": {
+      "type": "json"
+    },
+    "goalType": {
+      "type": "enumeration",
+      "enum": [
+        "single",
+        "combined",
+        "any"
+      ]
+    },
+    "individualGoals": {
+      "type": "json"
     }
   }
 }

@@ -437,6 +437,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    activities: Schema.Attribute.JSON;
     challenge_status: Schema.Attribute.Enumeration<
       ['pending', 'accepted', 'completed']
     >;
@@ -463,11 +464,13 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
     endDate: Schema.Attribute.Date;
-    goal: Schema.Attribute.Integer & Schema.Attribute.Required;
+    goal: Schema.Attribute.Integer;
+    goalType: Schema.Attribute.Enumeration<['single', 'combined', 'any']>;
     icon: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    individualGoals: Schema.Attribute.JSON;
     isPublic: Schema.Attribute.Boolean;
     isRecommended: Schema.Attribute.Boolean;
     level: Schema.Attribute.Enumeration<['Beginner', 'Intermediate', 'Pro']>;
@@ -478,9 +481,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     maxParticipants: Schema.Attribute.Integer;
-    metric: Schema.Attribute.Enumeration<
-      ['steps', 'duration', 'distance', 'calories', 'reps', 'weightloss']
-    >;
+    metrics: Schema.Attribute.JSON;
     participants: Schema.Attribute.Relation<
       'manyToMany',
       'plugin::users-permissions.user'
