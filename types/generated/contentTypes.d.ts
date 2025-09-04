@@ -471,6 +471,10 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       true
     >;
     individualGoals: Schema.Attribute.JSON;
+    invitations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invitation.invitation'
+    >;
     isPublic: Schema.Attribute.Boolean;
     isRecommended: Schema.Attribute.Boolean;
     level: Schema.Attribute.Enumeration<['Beginner', 'Intermediate', 'Pro']>;
@@ -1175,6 +1179,10 @@ export interface ApiFriendFriend extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Pending'>;
+    invitations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invitation.invitation'
+    >;
     inviteToken: Schema.Attribute.String & Schema.Attribute.Unique;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -1323,6 +1331,58 @@ export interface ApiHealthVitalHealthVital extends Struct.CollectionTypeSchema {
     wellnessFactors: Schema.Attribute.JSON;
     wellnessRecommendations: Schema.Attribute.JSON;
     wellnessScore: Schema.Attribute.Decimal;
+  };
+}
+
+export interface ApiInvitationInvitation extends Struct.CollectionTypeSchema {
+  collectionName: 'invitations';
+  info: {
+    description: '';
+    displayName: 'invitation';
+    pluralName: 'invitations';
+    singularName: 'invitation';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    challenge: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::challenge.challenge'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    expiresAt: Schema.Attribute.DateTime;
+    friend: Schema.Attribute.Relation<'manyToOne', 'api::friend.friend'>;
+    invitation_status: Schema.Attribute.Enumeration<
+      ['pending', 'accepted', 'declined', 'expired']
+    > &
+      Schema.Attribute.DefaultTo<'pending'>;
+    invitee: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    inviter: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invitation.invitation'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.String;
+    pack: Schema.Attribute.Relation<'manyToOne', 'api::pack.pack'>;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.Enumeration<
+      ['pack_invite', 'friend_request', 'challenge_invite']
+    > &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1501,6 +1561,10 @@ export interface ApiPackPack extends Struct.CollectionTypeSchema {
       'plugin::users-permissions.user'
     >;
     goal: Schema.Attribute.Integer & Schema.Attribute.Required;
+    invitations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invitation.invitation'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::pack.pack'> &
       Schema.Attribute.Private;
@@ -2633,6 +2697,10 @@ export interface PluginUsersPermissionsUser
       'oneToMany',
       'api::friend.friend'
     >;
+    receivedInvitations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invitation.invitation'
+    >;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
@@ -2641,6 +2709,10 @@ export interface PluginUsersPermissionsUser
     sent_friend_requests: Schema.Attribute.Relation<
       'oneToMany',
       'api::friend.friend'
+    >;
+    sentInvitations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invitation.invitation'
     >;
     sleeplogs: Schema.Attribute.Relation<'oneToMany', 'api::sleeplog.sleeplog'>;
     step_sessions: Schema.Attribute.Relation<
@@ -2702,6 +2774,7 @@ declare module '@strapi/strapi' {
       'api::friend.friend': ApiFriendFriend;
       'api::health-log.health-log': ApiHealthLogHealthLog;
       'api::health-vital.health-vital': ApiHealthVitalHealthVital;
+      'api::invitation.invitation': ApiInvitationInvitation;
       'api::meal-feedback.meal-feedback': ApiMealFeedbackMealFeedback;
       'api::meal.meal': ApiMealMeal;
       'api::mini-forum.mini-forum': ApiMiniForumMiniForum;

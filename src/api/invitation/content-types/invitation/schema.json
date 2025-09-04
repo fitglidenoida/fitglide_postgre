@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "invitations",
+  "info": {
+    "singularName": "invitation",
+    "pluralName": "invitations",
+    "displayName": "invitation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "pack_invite",
+        "friend_request",
+        "challenge_invite"
+      ],
+      "required": true
+    },
+    "inviter": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "sentInvitations"
+    },
+    "invitee": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "receivedInvitations"
+    },
+    "invitation_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "accepted",
+        "declined",
+        "expired"
+      ],
+      "default": "pending"
+    },
+    "message": {
+      "type": "string"
+    },
+    "expiresAt": {
+      "type": "datetime"
+    },
+    "challenge": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::challenge.challenge",
+      "inversedBy": "invitations"
+    },
+    "pack": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pack.pack",
+      "inversedBy": "invitations"
+    },
+    "friend": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::friend.friend",
+      "inversedBy": "invitations"
+    }
+  }
+}

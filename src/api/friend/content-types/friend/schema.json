@@ -45,6 +45,12 @@
     },
     "receiverName": {
       "type": "string"
+    },
+    "invitations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::invitation.invitation",
+      "mappedBy": "friend"
     }
   }
 }

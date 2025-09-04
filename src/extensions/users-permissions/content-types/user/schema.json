@@ -327,6 +327,18 @@
       "relation": "oneToMany",
       "target": "api::period-symptom.period-symptom",
       "mappedBy": "users_permissions_user"
+    },
+    "sentInvitations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::invitation.invitation",
+      "mappedBy": "inviter"
+    },
+    "receivedInvitations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::invitation.invitation",
+      "mappedBy": "invitee"
     }
   }
 }

@@ -68,6 +68,12 @@
         "private"
       ],
       "default": "public"
+    },
+    "invitations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::invitation.invitation",
+      "mappedBy": "pack"
     }
   }
 }
