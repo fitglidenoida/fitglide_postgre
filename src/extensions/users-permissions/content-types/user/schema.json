@@ -339,6 +339,12 @@
       "relation": "oneToMany",
       "target": "api::invitation.invitation",
       "mappedBy": "invitee"
+    },
+    "social_relationships": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::social-relationship.social-relationship",
+      "mappedBy": "related_user"
     }
   }
 }

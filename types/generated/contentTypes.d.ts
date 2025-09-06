@@ -1794,6 +1794,59 @@ export interface ApiSleeplogSleeplog extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSocialRelationshipSocialRelationship
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'social_relationships';
+  info: {
+    displayName: 'social-relationship';
+    pluralName: 'social-relationships';
+    singularName: 'social-relationship';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    context: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::social-relationship.social-relationship'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    related_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    relationship_type: Schema.Attribute.Enumeration<
+      [
+        'friend',
+        'pack_member',
+        'challenge_participant',
+        'pack_captain',
+        'challenge_challenger',
+        'challenge_challengee',
+      ]
+    > &
+      Schema.Attribute.Required;
+    social_relationship_status: Schema.Attribute.Enumeration<
+      ['pending', 'accepted', 'rejected', 'active', 'inactive', 'blocked']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'pending'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiStepSessionStepSession extends Struct.CollectionTypeSchema {
   collectionName: 'step_sessions';
   info: {
@@ -2715,6 +2768,10 @@ export interface PluginUsersPermissionsUser
       'api::invitation.invitation'
     >;
     sleeplogs: Schema.Attribute.Relation<'oneToMany', 'api::sleeplog.sleeplog'>;
+    social_relationships: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::social-relationship.social-relationship'
+    >;
     step_sessions: Schema.Attribute.Relation<
       'oneToMany',
       'api::step-session.step-session'
@@ -2783,6 +2840,7 @@ declare module '@strapi/strapi' {
       'api::period.period': ApiPeriodPeriod;
       'api::post.post': ApiPostPost;
       'api::sleeplog.sleeplog': ApiSleeplogSleeplog;
+      'api::social-relationship.social-relationship': ApiSocialRelationshipSocialRelationship;
       'api::step-session.step-session': ApiStepSessionStepSession;
       'api::thread.thread': ApiThreadThread;
       'api::waitlist.waitlist': ApiWaitlistWaitlist;

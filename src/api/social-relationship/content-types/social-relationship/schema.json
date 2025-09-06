@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "social_relationships",
+  "info": {
+    "singularName": "social-relationship",
+    "pluralName": "social-relationships",
+    "displayName": "social-relationship"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "social_relationships"
+    },
+    "related_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "social_relationships"
+    },
+    "relationship_type": {
+      "type": "enumeration",
+      "enum": [
+        "friend",
+        "pack_member",
+        "challenge_participant",
+        "pack_captain",
+        "challenge_challenger",
+        "challenge_challengee"
+      ],
+      "required": true
+    },
+    "social_relationship_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "accepted",
+        "rejected",
+        "active",
+        "inactive",
+        "blocked"
+      ],
+      "default": "pending",
+      "required": true
+    },
+    "context": {
+      "type": "json",
+      "required": false
+    }
+  }
+}
