@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "friends",
+  "info": {
+    "singularName": "friend",
+    "pluralName": "friends",
+    "displayName": "friend",
+    "description": "Friend relationships between users"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "friendEmail": {
+      "type": "string",
+      "required": false
+    },
+    "friends_status": {
+      "type": "enumeration",
+      "enum": [
+        "Pending",
+        "Accepted",
+        "Rejected"
+      ],
+      "default": "Pending",
+      "required": true
+    },
+    "inviteToken": {
+      "type": "string",
+      "unique": true,
+      "required": false
+    },
+    "sender": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "sent_friend_requests",
+      "required": false
+    },
+    "receiver": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "received_friend_requests",
+      "required": false
+    },
+    "senderName": {
+      "type": "string",
+      "required": false
+    },
+    "receiverName": {
+      "type": "string",
+      "required": false
+    },
+    "invitations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::invitation.invitation",
+      "mappedBy": "friend"
+    }
+  }
+}

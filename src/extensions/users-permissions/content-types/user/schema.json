@@ -345,6 +345,12 @@
       "relation": "oneToMany",
       "target": "api::social-relationship.social-relationship",
       "mappedBy": "related_user"
+    },
+    "activity_feeds": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::activity-feed.activity-feed",
+      "mappedBy": "author"
     }
   }
 }

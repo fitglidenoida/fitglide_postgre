@@ -369,6 +369,51 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiActivityFeedActivityFeed
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'activity_feeds';
+  info: {
+    displayName: 'activity-feed';
+    pluralName: 'activity-feeds';
+    singularName: 'activity-feed';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    author: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data: Schema.Attribute.JSON & Schema.Attribute.Required;
+    description: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::activity-feed.activity-feed'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sharedWith: Schema.Attribute.JSON;
+    title: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<
+      ['workout', 'achievement', 'pack_update']
+    > &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    visibility: Schema.Attribute.Enumeration<
+      ['friends', 'packs', 'public', 'private']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'friends'>;
+  };
+}
+
 export interface ApiBadgeBadge extends Struct.CollectionTypeSchema {
   collectionName: 'badges';
   info: {
@@ -2634,6 +2679,10 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
+    activity_feeds: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::activity-feed.activity-feed'
+    >;
     athlete_id: Schema.Attribute.Integer;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     challenge_participants: Schema.Attribute.Relation<
@@ -2811,6 +2860,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::activity-feed.activity-feed': ApiActivityFeedActivityFeed;
       'api::badge.badge': ApiBadgeBadge;
       'api::blog.blog': ApiBlogBlog;
       'api::challenge.challenge': ApiChallengeChallenge;

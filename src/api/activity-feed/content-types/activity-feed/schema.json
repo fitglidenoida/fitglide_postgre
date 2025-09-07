@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "activity_feeds",
+  "info": {
+    "singularName": "activity-feed",
+    "pluralName": "activity-feeds",
+    "displayName": "activity-feed"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "workout",
+        "achievement",
+        "pack_update"
+      ],
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "data": {
+      "type": "json",
+      "required": true
+    },
+    "visibility": {
+      "type": "enumeration",
+      "enum": [
+        "friends",
+        "packs",
+        "public",
+        "private"
+      ],
+      "required": true,
+      "default": "friends"
+    },
+    "sharedWith": {
+      "type": "json"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "activity_feeds"
+    }
+  }
+}
