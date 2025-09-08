@@ -48,6 +48,12 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "activity_feeds"
+    },
+    "cheers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cheer.cheer",
+      "mappedBy": "activity_feed"
     }
   }
 }

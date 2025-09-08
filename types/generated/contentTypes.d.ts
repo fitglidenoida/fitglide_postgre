@@ -385,6 +385,7 @@ export interface ApiActivityFeedActivityFeed
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    cheers: Schema.Attribute.Relation<'oneToMany', 'api::cheer.cheer'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -560,6 +561,10 @@ export interface ApiCheerCheer extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    activity_feed: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::activity-feed.activity-feed'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

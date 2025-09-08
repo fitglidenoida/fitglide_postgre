@@ -42,6 +42,12 @@
     "isLive": {
       "type": "boolean",
       "default": true
+    },
+    "activity_feed": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::activity-feed.activity-feed",
+      "inversedBy": "cheers"
     }
   }
 }
