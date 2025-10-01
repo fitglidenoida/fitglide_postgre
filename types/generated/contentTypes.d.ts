@@ -373,6 +373,7 @@ export interface ApiActivityFeedActivityFeed
   extends Struct.CollectionTypeSchema {
   collectionName: 'activity_feeds';
   info: {
+    description: '';
     displayName: 'activity-feed';
     pluralName: 'activity-feeds';
     singularName: 'activity-feed';
@@ -391,6 +392,7 @@ export interface ApiActivityFeedActivityFeed
       Schema.Attribute.Private;
     data: Schema.Attribute.JSON & Schema.Attribute.Required;
     description: Schema.Attribute.String;
+    isLive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -412,6 +414,7 @@ export interface ApiActivityFeedActivityFeed
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'friends'>;
+    workoutId: Schema.Attribute.String;
   };
 }
 

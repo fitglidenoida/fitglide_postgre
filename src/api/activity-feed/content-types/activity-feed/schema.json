@@ -4,7 +4,8 @@
   "info": {
     "singularName": "activity-feed",
     "pluralName": "activity-feeds",
-    "displayName": "activity-feed"
+    "displayName": "activity-feed",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -54,6 +55,13 @@
       "relation": "oneToMany",
       "target": "api::cheer.cheer",
       "mappedBy": "activity_feed"
+    },
+    "isLive": {
+      "type": "boolean",
+      "default": false
+    },
+    "workoutId": {
+      "type": "string"
     }
   }
 }
