@@ -382,17 +382,25 @@ export interface ApiActivityFeedActivityFeed
     draftAndPublish: true;
   };
   attributes: {
+    activityDate: Schema.Attribute.Date;
     author: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    calories: Schema.Attribute.Decimal;
+    cheerCount: Schema.Attribute.Integer;
     cheers: Schema.Attribute.Relation<'oneToMany', 'api::cheer.cheer'>;
+    commentCount: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     data: Schema.Attribute.JSON & Schema.Attribute.Required;
     description: Schema.Attribute.String;
+    distance: Schema.Attribute.Decimal;
+    duration: Schema.Attribute.Integer;
     isLive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    lastLiveUpdate: Schema.Attribute.DateTime;
+    liveData: Schema.Attribute.JSON;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -400,10 +408,19 @@ export interface ApiActivityFeedActivityFeed
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    sessionEndTime: Schema.Attribute.DateTime;
+    sessionId: Schema.Attribute.String;
+    sessionStartTime: Schema.Attribute.DateTime;
     sharedWith: Schema.Attribute.JSON;
     title: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<
-      ['workout', 'achievement', 'pack_update']
+      [
+        'workout',
+        'achievement',
+        'pack_update',
+        'daily_activity',
+        'live_workout',
+      ]
     > &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;

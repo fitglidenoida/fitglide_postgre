@@ -16,7 +16,9 @@
       "enum": [
         "workout",
         "achievement",
-        "pack_update"
+        "pack_update",
+        "daily_activity",
+        "live_workout"
       ],
       "required": true
     },
@@ -62,6 +64,39 @@
     },
     "workoutId": {
       "type": "string"
+    },
+    "sessionId": {
+      "type": "string"
+    },
+    "sessionStartTime": {
+      "type": "datetime"
+    },
+    "sessionEndTime": {
+      "type": "datetime"
+    },
+    "activityDate": {
+      "type": "date"
+    },
+    "duration": {
+      "type": "integer"
+    },
+    "distance": {
+      "type": "decimal"
+    },
+    "calories": {
+      "type": "decimal"
+    },
+    "cheerCount": {
+      "type": "integer"
+    },
+    "commentCount": {
+      "type": "integer"
+    },
+    "lastLiveUpdate": {
+      "type": "datetime"
+    },
+    "liveData": {
+      "type": "json"
     }
   }
 }
