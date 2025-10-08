@@ -353,10 +353,12 @@
       "mappedBy": "author"
     },
     "strava_access_token": {
-      "type": "string"
+      "type": "string",
+      "private": true
     },
     "strava_refresh_token": {
-      "type": "string"
+      "type": "string",
+      "private": true
     },
     "strava_token_expires_at": {
       "type": "biginteger"
