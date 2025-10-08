@@ -2850,7 +2850,10 @@ export interface PluginUsersPermissionsUser
       'oneToMany',
       'api::step-session.step-session'
     >;
+    strava_access_token: Schema.Attribute.String;
     strava_connected: Schema.Attribute.Boolean;
+    strava_refresh_token: Schema.Attribute.String;
+    strava_token_expires_at: Schema.Attribute.BigInteger;
     themePreference: Schema.Attribute.Enumeration<['light', 'dark', 'system']>;
     threads: Schema.Attribute.Relation<'oneToMany', 'api::thread.thread'>;
     type: Schema.Attribute.Enumeration<['regular', 'coach', 'dietician']>;

@@ -351,6 +351,15 @@
       "relation": "oneToMany",
       "target": "api::activity-feed.activity-feed",
       "mappedBy": "author"
+    },
+    "strava_access_token": {
+      "type": "string"
+    },
+    "strava_refresh_token": {
+      "type": "string"
+    },
+    "strava_token_expires_at": {
+      "type": "biginteger"
     }
   }
 }
