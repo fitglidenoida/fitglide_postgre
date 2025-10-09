@@ -99,11 +99,33 @@ export default ({ strapi }) => ({
         }
       }
 
-      // Fetch the detailed activity from Strava
+      // Fetch the detailed activity from Strava with retry on 401
       strapi.log.info(`Fetching detailed activity from Strava for activityId: ${activityId}`);
-      const response = await axios.get(`https://www.strava.com/api/v3/activities/${activityId}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      let response;
+      try {
+        response = await axios.get(`https://www.strava.com/api/v3/activities/${activityId}`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+      } catch (error) {
+        // If 401, try refreshing token and retry once
+        if (error.response?.status === 401) {
+          strapi.log.info(`Received 401, refreshing token and retrying for athlete ${athleteId}`);
+          accessToken = await this.refreshAccessToken(user);
+          
+          if (!accessToken) {
+            strapi.log.error(`Failed to refresh token after 401 for athlete ${athleteId}`);
+            return;
+          }
+          
+          // Retry with new token
+          response = await axios.get(`https://www.strava.com/api/v3/activities/${activityId}`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
+        } else {
+          throw error;
+        }
+      }
+      
       strapi.log.info('Activity fetch response:', JSON.stringify(response.data));
 
       const detailedActivity = response.data;
@@ -139,22 +161,26 @@ export default ({ strapi }) => ({
       
       strapi.log.info(`Time calculation - start: ${detailedActivity.start_date}, elapsed: ${detailedActivity.elapsed_time}s, end: ${endTime}`);
       
-      // Map to WorkoutLog
+      // Map to WorkoutLog with all required fields (matching schema field names)
       const workoutLog = {
         logId: logId,
         workout: null,
         startTime: detailedActivity.start_date,
         endTime: endTime,
-        distance: detailedActivity.distance / 1000, // Convert meters to kilometers
-        totalTime: detailedActivity.moving_time / 3600, // Convert seconds to hours
-        calories: detailedActivity.calories || 0,
-        heartRateAverage: detailedActivity.average_heartrate || 0,
-        heartRateMaximum: detailedActivity.max_heartrate || 0,
-        heartRateMinimum: 0,
+        Distance: detailedActivity.distance / 1000, // Convert meters to kilometers (PascalCase for Strapi)
+        TotalTime: detailedActivity.moving_time / 3600, // Convert seconds to hours (PascalCase for Strapi)
+        Calories: detailedActivity.calories || 0, // PascalCase for Strapi
+        HeartRateAverage: Math.round(detailedActivity.average_heartrate || 0), // PascalCase for Strapi
+        HeartRateMaximum: Math.round(detailedActivity.max_heartrate || 0), // PascalCase for Strapi
+        HeartRateMinimum: 0, // PascalCase for Strapi
         route: route,
         completed: true,
         notes: `Synced from Strava: ${detailedActivity.name}`,
         users_permissions_user: userId,
+        moving_time: detailedActivity.moving_time / 3600, // Also save as decimal hours
+        strava_activity_id: activityId,
+        athlete_id: athleteId,
+        source: 'strava',
       };
       strapi.log.info('Workout log to be created:', JSON.stringify(workoutLog));
 
