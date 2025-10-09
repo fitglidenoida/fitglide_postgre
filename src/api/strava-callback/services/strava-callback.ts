@@ -2,6 +2,52 @@ import axios from 'axios';
 import { tokenCache } from '../../../utils/cache'; // Add .ts extension
 
 export default ({ strapi }) => ({
+  async refreshAccessToken(user) {
+    try {
+      const { strava_refresh_token, athlete_id } = user;
+      
+      if (!strava_refresh_token) {
+        strapi.log.error(`No refresh token found for user ${user.id}`);
+        return null;
+      }
+
+      strapi.log.info(`Refreshing access token for athlete_id: ${athlete_id}`);
+      
+      const response = await axios.post('https://www.strava.com/oauth/token', {
+        client_id: process.env.STRAVA_CLIENT_ID,
+        client_secret: process.env.STRAVA_CLIENT_SECRET,
+        grant_type: 'refresh_token',
+        refresh_token: strava_refresh_token,
+      });
+
+      const { access_token, refresh_token, expires_at } = response.data;
+      
+      // Update user with new tokens in DB
+      await strapi.db.query('plugin::users-permissions.user').update({
+        where: { id: user.id },
+        data: {
+          strava_access_token: access_token,
+          strava_refresh_token: refresh_token,
+          strava_token_expires_at: expires_at,
+        },
+      });
+
+      // Update cache as well
+      tokenCache.set(athlete_id.toString(), {
+        accessToken: access_token,
+        refreshToken: refresh_token,
+        expiresAt: expires_at,
+        timestamp: Date.now(),
+      });
+
+      strapi.log.info(`Token refreshed successfully for athlete_id: ${athlete_id}`);
+      return access_token;
+    } catch (error) {
+      strapi.log.error(`Error refreshing token: ${error.message}`, error.stack);
+      return null;
+    }
+  },
+
   async handleNewActivity(activityId, athleteId) {
     try {
       strapi.log.info(`Starting handleNewActivity for activityId: ${activityId}, athleteId: ${athleteId}`);
@@ -22,21 +68,35 @@ export default ({ strapi }) => ({
       const userId = user.id;
       strapi.log.info(`Found user with ID: ${userId}`);
 
-      // Retrieve tokens from the in-memory cache
-      const tokenData = tokenCache.get(athleteId.toString());
-      if (!tokenData) {
-        strapi.log.error(`No tokens found in cache for athlete_id: ${athleteId}`);
-        return; // Gracefully return instead of throwing an error
+      // Get token from DB (fallback to cache)
+      let accessToken = user.strava_access_token;
+      let expiresAt = user.strava_token_expires_at;
+      
+      // If not in DB, try cache
+      if (!accessToken) {
+        const tokenData = tokenCache.get(athleteId.toString());
+        if (tokenData) {
+          accessToken = tokenData.accessToken;
+          expiresAt = tokenData.expiresAt;
+          strapi.log.info(`Retrieved tokens from cache for athlete_id: ${athleteId}`);
+        } else {
+          strapi.log.error(`No tokens found in DB or cache for athlete_id: ${athleteId}`);
+          return;
+        }
+      } else {
+        strapi.log.info(`Retrieved tokens from DB for athlete_id: ${athleteId}`);
       }
-      strapi.log.info(`Retrieved tokens from cache for athlete_id: ${athleteId}`);
 
-      const accessToken = tokenData.accessToken;
-      const expiresAt = tokenData.expiresAt;
-
-      // Check if the token has expired (5-minute buffer)
-      if (expiresAt < Math.floor(Date.now() / 1000) + 300) {
-        strapi.log.error(`Access token expired for athlete ${athleteId} at ${expiresAt}, current time: ${Math.floor(Date.now() / 1000)}`);
-        return; // Gracefully return instead of throwing an error
+      // Check if the token has expired (5-minute buffer) and refresh if needed
+      const currentTime = Math.floor(Date.now() / 1000);
+      if (expiresAt < currentTime + 300) {
+        strapi.log.info(`Access token expired for athlete ${athleteId} at ${expiresAt}, current time: ${currentTime}. Refreshing...`);
+        accessToken = await this.refreshAccessToken(user);
+        
+        if (!accessToken) {
+          strapi.log.error(`Failed to refresh token for athlete ${athleteId}`);
+          return;
+        }
       }
 
       // Fetch the detailed activity from Strava
@@ -72,12 +132,19 @@ export default ({ strapi }) => ({
         { lat: endLatLng[0], lng: endLatLng[1] },
       ];
 
+      // Calculate end time from start_date (UTC) + elapsed_time
+      const startDate = new Date(detailedActivity.start_date);
+      const endDate = new Date(startDate.getTime() + (detailedActivity.elapsed_time * 1000));
+      const endTime = endDate.toISOString();
+      
+      strapi.log.info(`Time calculation - start: ${detailedActivity.start_date}, elapsed: ${detailedActivity.elapsed_time}s, end: ${endTime}`);
+      
       // Map to WorkoutLog
       const workoutLog = {
         logId: logId,
         workout: null,
         startTime: detailedActivity.start_date,
-        endTime: detailedActivity.start_date_local,
+        endTime: endTime,
         distance: detailedActivity.distance / 1000, // Convert meters to kilometers
         totalTime: detailedActivity.moving_time / 3600, // Convert seconds to hours
         calories: detailedActivity.calories || 0,

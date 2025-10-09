@@ -71,15 +71,18 @@ export default ({ strapi }) => ({
       });
       strapi.log.info(`Stored tokens in cache for athlete_id: ${athlete.id}`);
 
-      // Update the user's profile in Strapi with athlete ID and connection status only
+      // Update the user's profile in Strapi with athlete ID, connection status, AND tokens in DB
       const updatedUser = await strapi.db.query('plugin::users-permissions.user').update({
         where: { id: userId },
         data: {
           athlete_id: athlete.id,
           strava_connected: true,
+          strava_access_token: access_token,
+          strava_refresh_token: refresh_token,
+          strava_token_expires_at: expires_at,
         },
       });
-      strapi.log.info(`Updated user with ID ${userId}: ${JSON.stringify(updatedUser)}`);
+      strapi.log.info(`Updated user with ID ${userId}: athlete_id=${athlete.id}, tokens saved to DB`);
 
       ctx.status = 200;
       ctx.body = {
