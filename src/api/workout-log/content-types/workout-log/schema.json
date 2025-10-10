@@ -64,10 +64,10 @@
       "type": "decimal"
     },
     "strava_activity_id": {
-      "type": "integer"
+      "type": "biginteger"
     },
     "athlete_id": {
-      "type": "integer"
+      "type": "biginteger"
     },
     "source": {
       "type": "string"

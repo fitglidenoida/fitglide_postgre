@@ -2100,7 +2100,7 @@ export interface ApiWorkoutLogWorkoutLog extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    athlete_id: Schema.Attribute.Integer;
+    athlete_id: Schema.Attribute.BigInteger;
     Calories: Schema.Attribute.Decimal;
     completed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -2124,7 +2124,7 @@ export interface ApiWorkoutLogWorkoutLog extends Struct.CollectionTypeSchema {
     route: Schema.Attribute.JSON;
     source: Schema.Attribute.String;
     startTime: Schema.Attribute.DateTime;
-    strava_activity_id: Schema.Attribute.Integer;
+    strava_activity_id: Schema.Attribute.BigInteger;
     TotalTime: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
