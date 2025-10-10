@@ -186,12 +186,24 @@ export default ({ strapi }) => ({
 
       // Save the workout log
       strapi.log.info('Creating workout log in database');
-      await strapi.entityService.create('api::workout-log.workout-log', { data: workoutLog });
-      strapi.log.info(`Saved workout log for activity: ${activityId}`);
+      try {
+        await strapi.entityService.create('api::workout-log.workout-log', { data: workoutLog });
+        strapi.log.info(`Saved workout log for activity: ${activityId}`);
+      } catch (createError) {
+        strapi.log.error(`Database create error for activity ${activityId}:`, createError.message);
+        strapi.log.error('Full error:', JSON.stringify(createError, null, 2));
+        strapi.log.error('Error details:', createError.details);
+        strapi.log.error('Error stack:', createError.stack);
+        throw createError;
+      }
     } catch (error) {
-      strapi.log.error(`Error syncing activity ${activityId}:`, error.message, error.stack);
+      strapi.log.error(`Error syncing activity ${activityId}:`, error.message);
+      strapi.log.error('Full error object:', JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
       if (error.response) {
         strapi.log.error('External API error response:', JSON.stringify(error.response.data));
+      }
+      if (error.stack) {
+        strapi.log.error('Error stack:', error.stack);
       }
       throw error;
     }
