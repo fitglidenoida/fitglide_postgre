@@ -191,21 +191,12 @@ export default ({ strapi }) => ({
         strapi.log.info(`Saved workout log for activity: ${activityId}, documentId: ${result.documentId}`);
       } catch (createError) {
         strapi.log.error(`Database create error for activity ${activityId}`);
-        strapi.log.error('Error type:', typeof createError);
-        strapi.log.error('Error name:', createError.name);
-        strapi.log.error('Error message:', createError.message);
-        strapi.log.error('Error toString:', createError.toString());
-        
-        // Try to extract validation errors
-        if (createError.details) {
-          strapi.log.error('Validation errors:', JSON.stringify(createError.details));
-        }
-        
-        // Log all properties
-        strapi.log.error('All error properties:', Object.keys(createError));
-        for (const key of Object.keys(createError)) {
-          strapi.log.error(`  ${key}:`, createError[key]);
-        }
+        strapi.log.error(`Error code: ${createError.code}`);
+        strapi.log.error(`Error detail: ${createError.detail}`);
+        strapi.log.error(`Error constraint: ${createError.constraint}`);
+        strapi.log.error(`Error column: ${createError.column}`);
+        strapi.log.error(`Error table: ${createError.table}`);
+        strapi.log.error(`Full error: ${JSON.stringify(createError)}`);
         
         throw createError;
       }
