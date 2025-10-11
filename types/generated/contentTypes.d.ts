@@ -1868,6 +1868,7 @@ export interface ApiSocialRelationshipSocialRelationship
   extends Struct.CollectionTypeSchema {
   collectionName: 'social_relationships';
   info: {
+    description: '';
     displayName: 'social-relationship';
     pluralName: 'social-relationships';
     singularName: 'social-relationship';
@@ -1903,7 +1904,15 @@ export interface ApiSocialRelationshipSocialRelationship
     > &
       Schema.Attribute.Required;
     social_relationship_status: Schema.Attribute.Enumeration<
-      ['pending', 'accepted', 'rejected', 'active', 'inactive', 'blocked']
+      [
+        'pending',
+        'accepted',
+        'rejected',
+        'active',
+        'inactive',
+        'blocked',
+        'completed',
+      ]
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'pending'>;

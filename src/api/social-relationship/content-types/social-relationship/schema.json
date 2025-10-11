@@ -4,7 +4,8 @@
   "info": {
     "singularName": "social-relationship",
     "pluralName": "social-relationships",
-    "displayName": "social-relationship"
+    "displayName": "social-relationship",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -42,7 +43,8 @@
         "rejected",
         "active",
         "inactive",
-        "blocked"
+        "blocked",
+        "completed"
       ],
       "default": "pending",
       "required": true
